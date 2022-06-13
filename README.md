@@ -51,15 +51,13 @@
         <li><a href="#checking-out-the-matter-code">Checking out the Matter code</a></li>
         <li><a href="#prepare-for-building">Prepare for building</a></li>
         <li><a href="#building-controller">Building controller</a></li>
-        <li><a href="#run-apps">Run apps</a></li>
-        <li><a href="#commissionning">Commissionning</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#run-apps">Run apps</a></li>
+    <li><a href="#commissionning">Commissionning</a></li>
+    <li><a href="#functional-features">Functional Features</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
