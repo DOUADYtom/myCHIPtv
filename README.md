@@ -333,6 +333,8 @@ export PATH=$PATH:$ANDROID_NDK_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-t
 TARGET_CPU=x64 ./scripts/examples/android_app_ide.sh
 ```
 
+Add python3 dependencies :
+
 ```sh
 sudo pip3 install Click
 sudo pip3 install coloredlogs
