@@ -316,24 +316,29 @@ Complete the following steps to prepare the Matter build:
 
 ### Building Android CHIPTool from Android Studio
 
-install Android-Studio into `/opt/`
+1. Install Android-Studio into `/opt/`
 ```sh
-dpkg -vxsf
+cd /opt/
+sudo tar -xvzf ~/Download/<your_android_package>.tar.gz
 ```
 
-See table below to chose the `TARGET_CPU` value :
+2. Install Android `API lvl 21`, `NDK`, `CMake version 3.10.2` via Settings > Appearance & Behavior > System Settings > Android SDK > SDK Platforms || SDK Tools.
 
+3. Setup env variables :
 ```sh
 export ANDROID_HOME=/home/kgwm9680/Android/Sdk/
 export ANDROID_NDK_HOME=/home/kgwm9680/Android/Sdk/ndk/24.0.8215888/
 export JAVA_HOME=/opt/android-studio/jre/
 
 export PATH=$PATH:$ANDROID_NDK_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$JAVA_HOME:$JAVA_HOME/bin
+```
 
+4. See table below to chose the `TARGET_CPU` value then Run the script that auto-build your app :
+```sh
 TARGET_CPU=x64 ./scripts/examples/android_app_ide.sh
 ```
 
-Add python3 dependencies :
+5. Add python3 dependencies :
 
 ```sh
 sudo pip3 install Click
@@ -343,6 +348,11 @@ sudo pip3 install jinja2
 sudo pip3 install stringcase
 ```
 
+6. Build :
+```sh
+cd src/android/CHIPTool
+./gradlew build
+```
 
 Find the good version of SDK (here is lvl 21) `Tools > SDK Manager` and go into `SDK Tools` install NDK (Side by side) and CMake.
 
@@ -355,6 +365,9 @@ Modify the `matterSdkSourceBuild` variable to true, `matterBuildSrcDir` point
 ```sh
 nano src/android/CHIPTool/gradle.properties
 ```
+
+
+
 
 <!-- CONTRIBUTING -->
 ## Contributing
