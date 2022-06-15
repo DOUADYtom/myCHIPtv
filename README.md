@@ -88,10 +88,6 @@ To get a local copy up and running follow these simple example steps.
 
 My two Raspberry use the following Linux version : ``Linux raspberrypi 5.15.32-v8+ aarch64 GNU/Linux``
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
 ### Install Prerequisites
 
 On Ubuntu server, you need to install `pi-bluetooth` and `avahi-utils` via APT.
@@ -162,10 +158,6 @@ If you already have a checkout, run the following command to sync submodules:
    cd connectedhomeip/
    ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
 <!-- PRE-BUILDING -->
 ### Prepare for building
 
@@ -213,7 +205,7 @@ source scripts/bootstrap.sh
 ### Python controller
 Run our python controller without bluetooth commissioning :
    ```sh
-   ./out/python_env/bin/chip-device-ctrl --no-ble
+   out/python_env/bin/chip-device-ctrl --no-ble
    ```
 To see all devices commissionnable :
    ```sh
@@ -221,13 +213,34 @@ To see all devices commissionnable :
    ```
 
 ### Tv App
-Run our tv-app with default Pin : `20202021` Discriminator : `3840` Manual Paring Code : `749701123365521327694`:
+Run our tv-app with default Pin : `20202021` Discriminator : `3840` Manual Paring Code : `34970112332` or `749701123365521327694`:
    ```sh
-   ./out/host/chip-tv-app --wifi --secured-device-port 5640 --secured-commissioner-port 5552
+   out/host/chip-tv-app --wifi --secured-device-port 5640 --secured-commissioner-port 5552
    ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
 
 <!-- COMMISSIONNING EXAMPLES -->
 ## Commissionning
+### From tv-app
+
+To show pairing codes from our `tv-app` :
+```sh
+onboardingcodes onnetwork
+```
+
+To show all nodes commissionnable : 
+```sh
+controller discover-display
+```
+
+Put `tv-app` on commission mode :
+```sh
+controller commission-onnetwork 20202021 3840 192.168.1.29 5540
+```
+
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
@@ -250,6 +263,96 @@ See the [open issues](https://github.com/DOUADYtom/myCHIPtv/issues) for a full l
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+
+## Build Android App
+
+### ABIs and TARGET_CPU
+
+`TARGET_CPU` can have the following values, depending on your smartphone CPU
+architecture:
+
+| ABI         | TARGET_CPU |
+| ----------- | ---------- |
+| armeabi-v7a | arm        |
+| arm64-v8a   | arm64      |
+| x86         | x86        |
+| x86_64      | x64        |
+
+<a name="jdk"></a>
+
+### Gradle & JDK Version
+
+We are using Gradle 7.1.1 for all android project which does not support Java 17
+(https://docs.gradle.org/current/userguide/compatibility.html) while the default
+JDK version on MacOS for Apple Silicon is 'openjdk 17.0.1' or above.
+
+Using JDK bundled with Android Studio will help with that.
+
+```shell
+export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/Contents/Home/
+```
+
+<hr>
+
+<a name="preparing"></a>
+
+## Preparing for build
+
+Complete the following steps to prepare the Matter build:
+
+1. Check out the Matter repository.
+
+2. Run bootstrap (**only required first time**)
+
+    ```shell
+    source scripts/bootstrap.sh
+    ```
+
+3. Choose how you want to build the Android CHIPTool. There are **two** ways:
+   from script, or from source within Android Studio.
+
+<a name="building-scripts"></a>
+
+
+### Building Android CHIPTool from Android Studio
+
+install Android-Studio into `/opt/`
+```sh
+dpkg -vxsf
+```
+
+See table below to chose the `TARGET_CPU` value :
+
+```sh
+export ANDROID_HOME=/home/kgwm9680/Android/Sdk/
+export ANDROID_NDK_HOME=/home/kgwm9680/Android/Sdk/ndk/24.0.8215888/
+export JAVA_HOME=/opt/android-studio/jre/
+
+export PATH=$PATH:$ANDROID_NDK_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$JAVA_HOME:$JAVA_HOME/bin
+
+TARGET_CPU=x64 ./scripts/examples/android_app_ide.sh
+```
+
+```sh
+sudo pip3 install Click
+sudo pip3 install coloredlogs
+sudo pip3 install lark
+sudo pip3 install jinja2
+sudo pip3 install stringcase
+```
+
+
+Find the good version of SDK (here is lvl 21) `Tools > SDK Manager` and go into `SDK Tools` install NDK (Side by side) and CMake.
+
+Modify the `matterSdkSourceBuild` variable to true, `matterBuildSrcDir` point
+   to the appropriate output directory (e.g. `../../../../out/android_x64`),
+   and `matterSourceBuildAbiFilters` to the desired ABIs in
+   [src/android/CHIPTool/gradle.properties](https://github.com/project-chip/connectedhomeip/blob/master/src/android/CHIPTool/gradle.properties)
+   (e.g. x86_64)
+ 
+```sh
+nano src/android/CHIPTool/gradle.properties
+```
 
 <!-- CONTRIBUTING -->
 ## Contributing
