@@ -148,14 +148,14 @@ Finally, reboot your RPi.
    git clone --recurse-submodules https://github.com:project-chip/connectedhomeip.git
    ```
 
-If you already have a checkout, run the following command to sync submodules:
-   ```sh
-   git submodule update --init
-   ```
-
 2. Change folder
    ```sh
    cd connectedhomeip/
+   ```
+   
+If you already have a checkout, run the following command to sync submodules:
+   ```sh
+   git submodule update --init
    ```
 
 <!-- PRE-BUILDING -->
@@ -304,7 +304,10 @@ Complete the following steps to prepare the Matter build:
 
 2. Run bootstrap (**only required first time**)
 
-    ```shell
+    ```sh
+    cd ../pigweed
+    source bootstrap.sh
+    cd ../connectedhomeip
     source scripts/bootstrap.sh
     ```
 
@@ -330,12 +333,13 @@ export ANDROID_HOME=/home/kgwm9680/Android/Sdk/
 export ANDROID_NDK_HOME=/home/kgwm9680/Android/Sdk/ndk/24.0.8215888/
 export JAVA_HOME=/opt/android-studio/jre/
 
+
 export PATH=$PATH:$ANDROID_NDK_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$JAVA_HOME:$JAVA_HOME/bin
 ```
 
 4. See table below to chose the `TARGET_CPU` value then Run the script that auto-build your app :
 ```sh
-TARGET_CPU=x64 ./scripts/examples/android_app_ide.sh
+TARGET_CPU=arm64 ./scripts/examples/android_app_ide.sh
 ```
 
 5. Add python3 dependencies :
@@ -352,6 +356,20 @@ sudo pip3 install stringcase
 ```sh
 cd src/android/CHIPTool
 ./gradlew build
+```
+
+pour chip-tool
+```sh
+./scripts/build/build_examples.py --target android-arm64-chip-tool build
+```
+
+pour tv-app :
+importer les librairies génerées en `4.` pour chip-tool : 
+
+voir `src/android/CHIPTool/app/libs` il y a 3 `.jar` et dans `/jniLibs` une librairie en fonction de la `TARGET_CPU`.
+
+```sh
+./scripts/build/build_examples.py --target android-arm64-chip-tvserver build
 ```
 
 Find the good version of SDK (here is lvl 21) `Tools > SDK Manager` and go into `SDK Tools` install NDK (Side by side) and CMake.
@@ -411,3 +429,12 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
+
+
+
+
+BlueTooth scan :
+
+```sh
+bluetoothctl scan on
+```
