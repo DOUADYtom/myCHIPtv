@@ -224,6 +224,69 @@ Run our tv-app with default Pin : `20202021` Discriminator : `3840` Manual Parin
 
 <!-- COMMISSIONNING EXAMPLES -->
 ## Commissionning
+
+### User commission 
+(Je fais sous linux cette partie, android fait un commissionning classic entre 2 objets)
+1. Lancer la Tv :
+
+```sh
+out/host/chip-tv-app --secured-device-port 5640 --secured-commissioner-port 5552
+```
+
+2. Lancer Casting-App :
+
+```sh
+(delete data from previous runs)
+rm -rf /tmp/rm -rf /tmp/chip_casting_kvs*
+out/debug/chip-tv-casting-app
+```
+
+3. Découvrir le réseau avec le controlleur 
+```sh
+(casting-app)$ cast discover
+```
+
+4. Faire une requete sur la bonne node (<node-id> est temporaire pour le controlleur)
+```sh
+(casting-app)$ cast request <node-id>
+<node-id> == ici la télé node 0
+```
+
+5. Accepter la requête depuis la télé
+```sh
+(tv-app)$ controller ux ok
+```
+
+6. verifier qu'il y a bien un controlleur d'enregistré
+```sh
+(tv-app)$ controller udc-print 
+```
+
+7. Lancer la commande que l'on souhaite depuis le controlleur
+```sh
+(casting-app)$ cast launch https://www.yahoo.com Hello
+```
+
+## Tv commission 
+Il faut savoir qu'il y a aussi de quoi commissionner depuis la télé
+Depuis tv-app on a la commande
+Controller :
+
+```sh
+  help                       Usage: controller <subcommand>
+  udc-reset                   Clear all pending UDC sessions from this UDC server. Usage: controller udc-reset
+  udc-print                   Print all pending UDC sessions from this UDC server. Usage: controller udc-print
+  ux ok|cancel [<pincode>]   User input. Usage: controller ux ok 34567890
+  udc-commission <pincode> <udc-entry>     Commission given udc-entry using given pincode. Usage: controller udc-commission 34567890 0
+  discover-commissionable          Discover all commissionable nodes. Usage: controller discover-commissionable
+  discover-commissionable-instance <name>   Discover all commissionable node with given instance name. Usage: controller discover-commissionable-instance DC514873944A5CFF
+  discover-display           Display all discovered commissionable nodes. Usage: controller discover-display
+  commission-onnetwork <pincode> <disc> <IP> <port>   Pair given device. Usage: controller commission-onnetwork 20202021 3840 127.0.0.1 5540
+```
+
+On peut donc commissionner un nouveau controlleur grace à son Ip, Discriminator et PinCode.
+On peut aussi laisser une entré libre pour un controlleur avec un PinCode et Pin défini pour cette entrée.
+
 ### From tv-app
 
 To show pairing codes from our `tv-app` :
@@ -333,7 +396,7 @@ export ANDROID_HOME=/home/kgwm9680/Android/Sdk/
 export ANDROID_NDK_HOME=/home/kgwm9680/Android/Sdk/ndk/24.0.8215888/
 export JAVA_HOME=/opt/android-studio/jre/
 
-
+   
 export PATH=$PATH:$ANDROID_NDK_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$JAVA_HOME:$JAVA_HOME/bin
 ```
 
@@ -438,3 +501,92 @@ BlueTooth scan :
 ```sh
 bluetoothctl scan on
 ```
+
+
+
+### BUG
+Vérifier ne pas avoir de bug avec le Bluetooth pour un futur commissionning avec :
+
+```sh
+hciconfig -a
+systemctl status bluetooth
+```
+
+Je remarque que le nom utilisé par mon interface bluetooth (hci0) contient des tirets ce qui peut parfois poser problème.
+J'ai donc préferer renomer mon Raspberry en utilisant la casse "CamelCase".
+
+FAIL: ConnectDevice : GDBus.Error:org.bluez.Error.Failed: Software caused connection abort (36)
+```sh
+sudo systemctl edit bluetooth.service
+```
+dans l'edit je rajoute les lignes dans la partie non commentée (en dehors des `#`) :
+
+```sh
+[Service]
+ExecStart=
+ExecStart=/usr/libexec/bluetooth/bluetoothd --noplugin=sap
+```
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl stop bluetooth.service
+sudo systemctl start bluetooth.service
+
+systemctl status bluetooth
+```
+ne pas avoir de bug dedans est important
+
+
+### GIT
+
+```sh
+git clone <repo_url>
+git branch -a
+(shows all branch)
+
+git clone -b <branch_name> <repo_url>
+(if you want to clone )
+```
+
+Si adb config `unauthorized` est spécifié pour chromeCast :
+
+```sh
+lsusb
+```
+
+ouput :
+```sh
+Bus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 008 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 007 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 002 Device 007: ID 18d1:4e40 Google Inc. Nexus 7 (fastboot)
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+```
+
+Ici on a donc idVendor=18d1 et idProduct=4e40
+
+```sh
+sudo nano /etc/udev/rules.d/51-android.rules
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="4e40", MODE="0666", GROUP="plugdev"
+
+sudo udevadm control --reload-rules
+(unplug then replug device if the last command doesn't work)
+```
+
+
+Faire ce qui est marqué dans la doc pour installer android-chip-casting-app sur le téléphone
+L'application platform-app de tv-app sur le googleCast 4k
+
+ouvrir l'application depuis google cast (normalement l'application Test TV est en mode commissionnable)
+
+vérifier avec : 
+```sh
+out/host/chip-tool discover commissionables
+```
+
+faire la même chose avec l'application casting-app sur android.
+
+Normalement on voit apparaitre la TV depuis le téléphone pour la commissionner.
+ 
+##Linux
