@@ -145,7 +145,7 @@ Finally, reboot your RPi.
 
 1. Check out the Matter repository:
    ```sh
-   git clone --recurse-submodules https://github.com:project-chip/connectedhomeip.git
+   git clone --recurse-submodules https://github.com/project-chip/connectedhomeip.git
    ```
 
 2. Change folder
@@ -265,6 +265,10 @@ out/debug/chip-tv-casting-app
 7. Lancer la commande que l'on souhaite depuis le controlleur
 ```sh
 (casting-app)$ cast launch https://www.yahoo.com Hello
+
+cast cluster keypadinput send-key 1 18446744004990074879 1
+(casting-app)$ cast cluster keypadinput send-key <KeyCode> <node-id> <endpoint>
+(casting-app)$ cast cluster keypadinput send-key 18 18446744004990074879 1
 ```
 
 ## Tv commission 
@@ -424,6 +428,9 @@ cd src/android/CHIPTool
 pour chip-tool
 ```sh
 ./scripts/build/build_examples.py --target android-arm64-chip-tool build
+./scripts/build/build_examples.py --target android-arm64-chip-tvserver build
+./scripts/build/build_examples.py --target android-arm64-chip-tv-casting-app build
+
 ```
 
 pour tv-app :
@@ -590,3 +597,31 @@ faire la même chose avec l'application casting-app sur android.
 Normalement on voit apparaitre la TV depuis le téléphone pour la commissionner.
  
 ##Linux
+
+
+
+## Modif config Linux
+
+NameSpace chip::Shell::Engine
+RegisterDefaultCommands --> src/lib/shell/Engine.cpp
+   Définition des commande de base à importer dans l'application :
+   les define à 0 ou 1 de 
+      - CHIP_DEVICE_CONFIG_ENABLE_CHIPOBLE
+      - CHIP_DEVICE_CONFIG_ENABLE_WIFI_STATION
+      - CHIP_DEVICE_CONFIG_ENABLE_WIFI_AP
+      - CONFIG_DEVICE_LAYER
+      - CHIP_DEVICE_CONFIG_ENABLE_NFC
+      - CHIP_DEVICE_CONFIG_ENABLE_OTA_REQUESTOR
+         --> src/include/platform/CHIPDeviceConfig.h
+
+Pour Casting App :
+   RegisterCommands --> examples/tv-app/linux/CastingShellCommands.cpp
+   == sous commande : cast [args]
+
+Pour Server App :
+   RegisterCommands --> examples/tv-app/linux/AppPlatformShellCommands.cpp
+   == sous commande : app [args]
+
+   Fait reference à des commendes déjà implémenté dans un autre exemple (platform) :
+      /examples/platform/linux/ControllerShellCommands.cpp
+   == sous commande : controller [args]
