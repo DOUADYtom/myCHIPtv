@@ -680,4 +680,29 @@ Yocto != gestionnaire de packet (permet d'installer un package alors que la dist
 
 Image générée par BuildRoot qu'on place dans la carte sd dans notre cas (/sdc)
 if : inputfile
-of : outputfile
+of : outputfileest une Stellar)
+
+## Définition : 
+- Datamodel :
+   médélisation des données qui sert a établir une norme / oragnisation / règles de communication entre deux objets
+
+- Cluster : 
+   Element de base du Datamodel, peut être interprêté comme :
+      - Un service
+      - La classe d'objet
+      - Une interface d'un objet
+
+- Endpoint :
+   Une instace qui s'apparente à :
+      - Un service
+      - un appareil virtuel
+   (je le vois comme un morceau d'un appareil comme la led d'un switch ou la caméra d'un téléphone
+    == un composant d'un objet)
+
+- Node :
+   Objet (virtuel ou non) du réseau
+
+- Spécifier ce qu'est le terme 'Device' lorsqu'on l'utilise car cela peut représenter trop de choses.
+  
+
+Une Node contient un ou plusieurs Endpoints qui eux discutent sur le réseau matter via un ou plusieurs Clusters par Endpoint.
