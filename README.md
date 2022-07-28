@@ -308,6 +308,46 @@ Put `tv-app` on commission mode :
 controller commission-onnetwork 20202021 3840 192.168.1.29 5540
 ```
 
+### Chip-tool commission
+
+1. Show QR Code from TV :
+   ```sh
+   > onboardingcodes onnetwork
+   QRCode:            MT:-24J0AFN00KA0648G00
+   QRCodeUrl:         https://project-chip.github.io/connectedhomeip/qrcode.html?data=MT%3A-24J0AFN00KA0648G00
+   ManualPairingCode: 34970112332
+   ```
+
+2. Start commissionning
+   ```sh
+   commissionee startbcm
+   ```
+
+3. launch chip-tool commissioning request from your PC :
+   ```sh
+   chip-tool pairing code <setup-your-node-id> <QR_Code>
+   ||
+   chip-tool pairing code <setup-your-node-id> <ManualPairingCode>
+
+   Exemple :
+   chip-tool pairing code 21 MT:-24J0AFN00KA0648G00
+   ```
+
+## Descriptor (see all clusters and endpoints)
+
+From a chip-tool pairing :
+   ```sh
+   chip-tool descriptor read <attribute-name> <node-id> 0
+
+   example:
+
+   chip-tool descriptor read attribute-list 21 0
+   ```
+
+From the casting-app :
+   ```sh
+   cast access <noed-id>
+   ```
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
@@ -625,3 +665,19 @@ Pour Server App :
    Fait reference à des commendes déjà implémenté dans un autre exemple (platform) :
       /examples/platform/linux/ControllerShellCommands.cpp
    == sous commande : controller [args]
+
+
+###BuildRoot
+
+
+Un générateur de distribution, Configuration management (stocké à un seul endroit qu'on peut versionner avec git par rexemple).
+Systeme 100% reproductible, qui sert à reproduire le setup sans l'aide d'un humain.
+
+Facile de modifier le soft (pour optimiser la vitesse de boot par exemple en telechargeant l'image sur un autre serveur que linux officiel)
+
+Yocto != gestionnaire de packet (permet d'installer un package alors que la distrib est déjà installée = fourni des patchs)
+      on a pas toujours envie d'avoir la possiblité de patch
+
+Image générée par BuildRoot qu'on place dans la carte sd dans notre cas (/sdc)
+if : inputfile
+of : outputfile

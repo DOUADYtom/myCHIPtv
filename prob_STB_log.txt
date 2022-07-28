@@ -1,0 +1,1172 @@
+1. Flash pour FW_00_00_00 :
+    http://obox.rd.francetelecom.fr:8000/thirdparty/sah/newbox/global-package/intel-global-package-SDK_7.0nb68.0_v1.ubifs.img
+        transformer le fichier telechargé en :
+            kernel.bin
+
+2. Flash pour AR_05_04_01 :
+    https://www.forge.orange-labs.fr/file/showfiles.php?group_id=4499# 
+        Dans :
+            OpenBox Bootstrap Resident Application -->SOP6/SOP7 SDK
+            ra.bin
+    ( lien direct : https://www.forge.orange-labs.fr/file/download/41726 )
+
+
+
+
+
+3. Mon pc perso :
+
+mon_pseudo:~/phoenix$ sudo busybox httpd -p 80 -f -vvv -h $(pwd)/www
+
+
+[::ffff:192.168.1.36]:38898: connected
+[::ffff:192.168.1.36]:38898: url:/FW_00_00_00/kernel.bin
+[::ffff:192.168.1.36]:38898: response:200
+[::ffff:192.168.1.36]:38898: closed
+
+
+(je ne remarque pas de connexion à AR)
+
+
+
+
+4. Sur la STB :
+
+- j'appuie sur une touche quand
+    >>>>> [FORCEDMODE] Hit a key to start downloader before SYNC
+
+- puis j'appuie sur 't' 
+    *****************************************
+    ** Strike 't' button to start toolbox **
+    *****************************************
+
+je rentre les commandes suivantes :
+
+>versions
+  BSL 1
+    loader_software_module_version       = 10412
+  FIRMWARE
+    firmware_software_module_version       = 875836468
+  RESIDENT APPLICATION
+    ra_software_module_version       = 875836468
+
+  ==> Command 'versions' OK
+
+>corrupt kernel
+>dl_firmware_url http://192.168.1.35/FW_00_00_00/kernel.bin
+>boot_mode DOWNLOAD
+
+ou
+
+>corrupt ra
+>dl_ra_url http://192.168.1.35/AR_05_04_01/ra.bin
+>boot_mode DOWNLOAD
+
+
+Je verifie la config avec :
+
+>all
+boot_mode : DOWNLOAD
+dhcp77 : PC_MLTV_WHD94
+ntpserver : thotfr.orange.com
+timeoffset : CET-1CEST,M3.5.0/02:00:00,M10.5.0/03:00:00
+dl_firmware_url : http://192.168.1.35/FW_00_00_00/kernel.bin
+dl_firmware_ssu : 
+dl_firmware_ret : 9015
+dl_firmware_idx : 0
+rescue_firmware_url : http://karma-pfqdm-dl2.orange.com/kstbvalid/fr/sagem/SAGEM_WHD94_stbste_00.00.00/rescue/FW_00_00_00/whd94_test.as3
+dl_loader_url : 
+dl_loader_ssu : 
+dl_loader_ret : 
+dl_loader_idx : 255
+rescue_loader_url : 
+dl_ra_url : http://192.168.1.35/AR_05_04_01/ra.bin
+dl_ra_ssu : 
+dl_ra_ret : 
+dl_loader_idx : 255
+rescue_ra_url : 
+country : FR
+wifi_ssid : 
+wifi_key : 
+wifi_state : 1
+
+  ==> Command 'all' OK
+
+
+>reboot
+mailBox has been updated
+[  219.359124] reboot: Restarting system
+
+ou
+>quit
+mailBox has been updated
+
+puis :
+#reboot
+
+
+5. Log de la STB :
+
+[  770.486090] reboot: Restarting system
+
+[INFO]  ---------------------------------------------------
+[INFO]  Orange-DTIW385-preloader-fake-v1.2d - Copyright (c) Sagemcom (2017-11-24 11:08:42)
+[INFO]  ---------------------------------------------------
+
+[INFO]  CS0: SFDP SPI, 4MB, 64kB blocks, 64kB erase block, 256B pages
+[INFO]  EMMC1: Embedded MultiMediaCard - High Speed (50MHz), 6956MB
+[INFO]  CRYPT0: Full Disk Encryption (AES128-CTR-ESSIV:SHA256) on emmcflash0.e2p, 1024kB
+[INFO]  E2P0: Emulated EEPROM on crypt0, 1024kB, 128kB page
+
+PSCI: config @ 000000007f003040 cpus:4 cpu idx:0
+cpu 0 state:5
+cpu 1 state:0
+cpu 2 state:0
+cpu 3 state:0
+[INFO]  DISPLAY SPLASH SCREEN
+
+>>>>> [FORCEDMODE] Hit a key to start downloader before SYNC
+>>>>> [FORCEDMODE] key pressed ! start downloader
+
+PSCI: DTB @ 0000000000000000, Linux entry @ 000000002002a000
+PWR_UP-CPU1 OK
+BOOT32
+ADDR-CPU1  000000007f00264c @ RDB: 20452008
+ON-CPU1  00000002 @ 2020508c
+GO-CPU1 @ 0000000000009380
+PWR_UP-CPU2 OK
+BOOT32
+ADDR-CPU2  000000007f00264c @ RDB: 20452010
+ON-CPU2  00000004 @ 2020508c
+GO-CPU2 @ 0000000000009380
+PWR_UP-CPU3 OK
+BOOT32
+ADDR-CPU3  000000007f00264c @ RDB: 20452018
+ON-CPU3  00000008 @ 2020508c
+GO-CPU3 @ 0000000000009380
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 4.1.20-1.10 (g133069@rmm-p1303247fl) (gcc version 4.8.5 (Broadcom stbgcc-4.8-1.5) ) #3 SMP Wed Jan 10 11:06:52 CET 2018
+[    0.000000] CPU: ARMv7 Processor [420f1000] revision 0 (ARMv7), cr=30c5383d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine model: M385_2_7268B0
+[    0.000000] moving dtb from 0x000000002135f6f0 to 0x000000000352e490
+[    0.000000] bmem: Reserved 888 MiB at 0x0000000016000000
+[    0.000000] cma: Reserved 16 MiB at 0x000000007e000000
+[    0.000000] Forcing write-allocate cache policy for SMP
+[    0.000000] Memory policy: Data cache writealloc
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv0.2 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] PERCPU: Embedded 12 pages/cpu @d47a3000 s17024 r8192 d23936 u49152
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 522560
+[    0.000000] Kernel command line: root=/dev/ram0 blkdevparts=mmcblk0:27m@0x00000000(SecurityLoader1),3m@0x01B00000(E2P),262m@0x01E00000(DataFS),128m@0x12400000(Firmware),64M@320M(Reserved),27m@0x1E400000(Secur
+ityLoader2),1m@0x1FF00000(RA),-@512M(TS),1m@0x01B00000(Noe2pFS),1m@0x01C00000(CAS1),1m@0x01D00000(CAS2) ramdisk_size=131072 vmalloc=664m bmem=888m@352m
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Memory: 1095696K/2092992K available (5405K kernel code, 270K rwdata, 1836K rodata, 46692K init, 209K bss, 980912K reserved, 16384K cma-reserved, 815036K highmem)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xffc00000 - 0xfff00000   (3072 kB)
+[    0.000000]     vmalloc : 0xd6000000 - 0xff000000   ( 656 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xd5800000   ( 344 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc071aa48   (7243 kB)
+[    0.000000]       .init : 0xc071b000 - 0xc34b4000   (46692 kB)
+[    0.000000]       .data : 0xc34b4000 - 0xc34f7b58   ( 271 kB)
+[    0.000000]        .bss : 0xc34fa000 - 0xc352e490   ( 210 kB)
+[    0.000000] Hierarchical RCU implementation.
+[    0.000000]  Additional per-CPU info printed with stalls.
+[    0.000000] NR_IRQS:16 nr_irqs:16 16
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd6002000, parent irq: 91)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd6008000, parent irq: 63)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd600aa00, parent irq: 64)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd600c640, parent irq: 93)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd600e200, parent irq: 57)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd6010600, parent irq: 97)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd6012c00, parent irq: 98)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd6014640, parent irq: 95)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd6016c40, parent irq: 96)
+[    0.000000] irq_brcmstb_l2: registered L2 intc (mem: 0xd6018000, parent irq: 100)
+[    0.000000] Architected cp15 timer(s) running at 27.00MHz (phys).
+[    0.000000] clocksource arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x63a1e71a3, max_idle_ns: 440795203123 ns
+[    0.000003] sched_clock: 56 bits at 27MHz, resolution 37ns, wraps every 4398046511093ns
+[    0.000011] Switching to timer-based delay loop, resolution 37ns
+[    0.000394] Console: colour dummy device 80x30
+[    0.000412] Calibrating delay loop (skipped), value calculated using timer frequency.. 54.00 BogoMIPS (lpj=27000)
+[    0.000419] pid_max: default: 32768 minimum: 301
+[    0.000516] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000521] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000855] CPU: Testing write buffer coherency: ok
+[    0.001064] CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+[    0.001098] Setting up static identity map for 0x82c0 - 0x8318
+[    0.003245] MCP: Enabling write pairing
+[    0.014916] CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+[    0.026455] CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+[    0.037981] CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+[    0.038006] Brought up 4 CPUs
+[    0.038016] SMP: Total of 4 processors activated (216.00 BogoMIPS).
+[    0.038021] CPU: All CPU(s) started in HYP mode.
+[    0.038024] CPU: Virtualization extensions available.
+[    0.038357] devtmpfs: initialized
+[    0.045604] VFP support v0.3: implementor 42 architecture 3 part 10 variant 0 rev 0
+[    0.045764] clocksource jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[    0.046275] pinctrl core: initialized pinctrl subsystem
+[    0.046891] NET: Registered protocol family 16
+[    0.047426] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.052185] cpuidle: using governor ladder
+[    0.058198] cpuidle: using governor menu
+[    0.064163] hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
+[    0.064171] hw-breakpoint: maximum watchpoint size is 8 bytes.
+[    0.064413] Broadcom Brahma-B15 readahead cache at: 0xd60f0078
+[    0.069226] brcmstb-gpio f0419c80.gpio: Registered 2 banks (GPIO(s): 0-63)
+[    0.069511] brcmstb-gpio f040a500.gpio: Registered 4 banks (GPIO(s): 64-191)
+[    0.069875] SCSI subsystem initialized
+[    0.070034] usbcore: registered new interface driver usbfs
+[    0.070069] usbcore: registered new interface driver hub
+[    0.070100] usbcore: registered new device driver usb
+[    0.070189] pps_core: LinuxPPS API ver. 1 registered
+[    0.070192] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.070209] PTP clock support registered
+[    0.071083] Switched to clocksource arch_sys_counter
+[    0.076660] thermal thermal_zone0: failed to read out thermal zone (-22)
+[    0.076754] NET: Registered protocol family 2
+[    0.077087] TCP established hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.077114] TCP bind hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.077154] TCP: Hash tables configured (established 4096 bind 4096)
+[    0.077214] UDP hash table entries: 256 (order: 1, 8192 bytes)
+[    0.077227] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes)
+[    0.077332] NET: Registered protocol family 1
+[    0.077468] RPC: Registered named UNIX socket transport module.
+[    0.077472] RPC: Registered udp transport module.
+[    0.077475] RPC: Registered tcp transport module.
+[    0.077478] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.161941] CPU PMU: Failed to parse /pmu/interrupt-affinity[0]
+[    0.161978] hw perfevents: enabled with armv7_cortex_a15 PMU driver, 7 counters available
+[    0.163468] futex hash table entries: 1024 (order: 4, 65536 bytes)
+[    0.164191] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.164321] NFS: Registering the id_resolver key type
+[    0.164347] Key type id_resolver registered
+[    0.164350] Key type id_legacy registered
+[    0.164363] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    0.164396] ntfs: driver 2.1.32 [Flags: R/O].
+[    0.164424] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[    0.164497] fuse init (API version 7.23)
+[    0.165057] bounce: pool size: 64 pages
+[    0.165095] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
+[    0.165104] io scheduler noop registered
+[    0.165111] io scheduler deadline registered
+[    0.165122] io scheduler cfq registered (default)
+[    0.165346] brcm-gisb-arb f0400000.gisb-arb: registered mem: d616c000, irqs: 262, 263
+[    0.216296] pinctrl-single f0410700.pinmux: 4 pins at pa d6170700 size 1
+[    0.217942] brcmstb_memc f1102000.memc-ddr: registered
+[    0.218269] brcm-waketimer f041a080.waketimer: rtc core: registered brcmstb-waketmr as rtc0
+[    0.218279] brcm-waketimer f041a080.waketimer: registered, with irq 265
+[    0.250089] Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+[    0.251502] console [ttyS0] disabled
+[    0.251538] f040c000.serial: ttyS0 at MMIO 0xf040c000 (irq = 102, base_baud = 5062500) is a 16550A
+[    1.009332] console [ttyS0] enabled
+[    1.013270] f040d000.serial: ttyS1 at MMIO 0xf040d000 (irq = 103, base_baud = 5062500) is a 16550A
+[    1.022552] f040e000.serial: ttyS2 at MMIO 0xf040e000 (irq = 104, base_baud = 5062500) is a 16550A
+[    1.036543] brd: module loaded
+[    1.042306] loop: module loaded
+[    1.046227] brcmstb_qspi f0203c00.spi: using bspi-mspi mode
+[    1.051879] brcmstb_qspi f0203c00.spi: IRQ spi_l1_intr not found
+[    1.057914] brcmstb_qspi: probe of f0203c00.spi failed with error -22
+[    1.064391] brcmstb_qspi f0200920.qspi: using bspi-mspi mode
+[    1.070480] sfdp: signature = 0x50444653
+[    1.074415] sfdp: minor revision = 0
+[    1.077997] sfdp: major revision = 1
+[    1.081578] sfdp: num parameters = 1
+[    1.085368] sfdp: ====================
+[    1.089125] sfdp: parameter 0
+[    1.092099] sfdp: jedec id = 0x00
+[    1.095419] sfdp: minor revision = 0
+[    1.099001] sfdp: major revision = 1
+[    1.102581] sfdp: parameter length = 9
+[    1.106335] sfdp: parameter table pointer = 48
+[    1.110787] sfdp: sector erase size = 1 (4 KB)
+[    1.115238] sfdp: write granulatrity = 1 (64B or more)
+[    1.120384] sfdp: write enable instruction = 0 (sr non volatile)
+[    1.126400] sfdp: write enable opcode = 0 (0x50)
+[    1.131025] sfdp: 4 KB erase opcode = 0x20
+[    1.135128] sfdp: fast read 1-1-2 = 1 (supported)
+[    1.139839] sfdp: address bytes = 0 (3-Byte only)
+[    1.144550] sfdp: double transfert rate = 0 (NOT supported)
+[    1.150130] sfdp: fast read 1-2-2 = 1 (supported)
+[    1.154841] sfdp: fast read 1-4-4 = 1 (supported)
+[    1.159552] sfdp: fast read 1-1-4 = 1 (supported)
+[    1.164264] sfdp: flash memory density = 33554431 (4194304 bytes)
+[    1.170366] sfdp: fast read 1-4-4 number of wait states = 0x4
+[    1.176120] sfdp: fast read 1-4-4 number of mode bits = 0x2
+[    1.181700] sfdp: fast read 1-4-4 opcode = 0xeb
+[    1.186238] sfdp: fast read 1-1-4 number of wait states = 0x8
+[    1.191992] sfdp: fast read 1-1-4 number of mode bits = 0x0
+[    1.197572] sfdp: fast read 1-1-4 opcode = 0x6b
+[    1.202109] sfdp: fast read 1-1-2 number of wait states = 0x8
+[    1.207863] sfdp: fast read 1-1-2 number of mode bits = 0x0
+[    1.213444] sfdp: fast read 1-1-2 opcode = 0x3b
+[    1.217982] sfdp: fast read 1-2-2 number of wait states = 0x4
+[    1.223735] sfdp: fast read 1-2-2 number of mode bits = 0x0
+[    1.229316] sfdp: fast read 1-2-2 opcode = 0xbb
+[    1.233854] sfdp: fast read 2-2-2 = 0 (NOT supported)
+[    1.238913] sfdp: fast read 4-4-4 = 0 (NOT supported)
+[    1.243973] sfdp: fast read 2-2-2 number of wait states = 0x0
+[    1.249727] sfdp: fast read 2-2-2 number of mode bits = 0x0
+[    1.255308] sfdp: fast read 2-2-2 opcode = 0xff
+[    1.259846] sfdp: fast read 4-4-4 number of wait states = 0x0
+[    1.265601] sfdp: fast read 4-4-4 number of mode bits = 0x0
+[    1.271180] sfdp: fast read 4-4-4 opcode = 0xff
+[    1.275718] sfdp: sector type 1 size = 12 (4096)
+[    1.280344] sfdp: sector type 1 opcode = 0x20
+[    1.284708] sfdp: sector type 2 size = 15 (32768)
+[    1.289419] sfdp: sector type 2 opcode = 0x52
+[    1.293783] sfdp: sector type 3 size = 16 (65536)
+[    1.298494] sfdp: sector type 3 opcode = 0xd8
+[    1.302858] sfdp: sector type 4 size = 0 (1)
+[    1.307134] sfdp: sector type 4 opcode = 0xff
+[    1.311497] sfdp: data[00]: 0xfff120e5
+[    1.315252] sfdp: data[01]: 0x01ffffff
+[    1.319007] sfdp: data[02]: 0x6b08eb44
+[    1.322762] sfdp: data[03]: 0xbb043b08
+[    1.326520] sfdp: data[04]: 0xffffffee
+[    1.330275] sfdp: data[05]: 0xff00ffff
+[    1.334030] sfdp: data[06]: 0xff00ffff
+[    1.337786] sfdp: data[07]: 0x520f200c
+[    1.341540] sfdp: data[08]: 0xff00d810
+[    1.345295] sfdp: ====================
+[    1.349050] sfdp: parameter 1
+[    1.352022] sfdp: jedec id = 0xc2
+[    1.355342] sfdp: minor revision = 0
+[    1.358923] sfdp: major revision = 1
+[    1.362504] sfdp: parameter length = 4
+[    1.366259] sfdp: parameter table pointer = 96
+[    1.370733] m25p80 spi32766.0: m25p80 (4096 Kbytes)
+[    1.375635] 6 ofpart partitions found on MTD device spi32766.0
+[    1.381477] Creating 6 MTD partitions on "spi32766.0":
+[    1.386625] 0x000000000000-0x0000000c0000 : "BOOT"
+[    1.391871] 0x0000000c0000-0x000000100000 : "OTP_parameters"
+[    1.397962] 0x0000000f5000-0x0000000fd000 : "secdata"
+[    1.403025] mtd: partition "secdata" doesn't start on an erase block boundary -- force read-only
+[    1.412251] 0x0000000fd000-0x0000000ffc00 : "flash0.nomenclature"
+[    1.418357] mtd: partition "flash0.nomenclature" doesn't start on an erase block boundary -- force read-only
+[    1.428617] 0x0000000ffc00-0x000000100000 : "flash0.factorydata"
+[    1.434635] mtd: partition "flash0.factorydata" doesn't start on an erase block boundary -- force read-only
+[    1.444834] 0x000000000000-0x000000400000 : "FullNor"
+[    1.450874] libphy: Fixed MDIO Bus: probed
+[    1.455354] pinctrl-single f0410700.pinmux: pin 4 is not registered so it cannot be requested
+[    1.463894] pinctrl-single f0410700.pinmux: pin-4 (f0480000.ethernet) status -22
+[    1.471305] pinctrl-single f0410700.pinmux: could not request pin 4 (non-existing) from group phy_reset_grp  on device pinctrl-single
+[    1.483320] bcmgenet f0480000.ethernet: Error applying setting, reverse things back
+[    1.491100] bcmgenet f0480000.ethernet: Using random MAC: 62:ed:c6:13:97:2d
+[    1.498209] bcmgenet f0480000.ethernet: GENET 5.0 EPHY: 0x0000
+[    1.519091] libphy: bcmgenet MII bus: probed
+[    1.545751] bcmgenet f04a0000.ethernet: Using random MAC: 7e:1a:3f:0f:9b:74
+[    1.552846] bcmgenet f04a0000.ethernet: GENET 5.0 EPHY: 0x0000
+[    1.560088] libphy: bcmgenet MII bus: probed
+[    1.566549] e1000e: Intel(R) PRO/1000 Network Driver - 2.3.2-k
+[    1.572394] e1000e: Copyright(c) 1999 - 2014 Intel Corporation.
+[    1.578367] pegasus: v0.9.3 (2013/04/25), Pegasus/Pegasus II USB Ethernet driver
+[    1.585820] usbcore: registered new interface driver pegasus
+[    1.591526] usbcore: registered new interface driver asix
+[    1.596963] usbcore: registered new interface driver ax88179_178a
+[    1.603101] usbcore: registered new interface driver cdc_ether
+[    1.608990] usbcore: registered new interface driver cdc_ncm
+[    1.614664] xhci-brcm: xHCI BRCM driver
+[    1.635539] xhci-brcm f0b01000.xhci_v2: xHCI Host Controller
+[    1.641224] xhci-brcm f0b01000.xhci_v2: new USB bus registered, assigned bus number 1
+[    1.649322] xhci-brcm f0b01000.xhci_v2: hcc params 0x0250f17d hci version 0x100 quirks 0x00010090
+[    1.658236] xhci-brcm f0b01000.xhci_v2: irq 124, io mem 0xf0b01000
+[    1.664847] hub 1-0:1.0: USB hub found
+[    1.668625] hub 1-0:1.0: config failed, hub doesn't have any ports! (err -19)
+[    1.675894] xhci-brcm f0b01000.xhci_v2: xHCI Host Controller
+[    1.681571] xhci-brcm f0b01000.xhci_v2: new USB bus registered, assigned bus number 2
+[    1.689446] usb usb2: We don't know the algorithms for LPM for this host, disabling LPM.
+[    1.697881] hub 2-0:1.0: USB hub found
+[    1.701654] hub 2-0:1.0: 2 ports detected
+[    1.706051] ehci-brcm: EHCI BRCM driver
+[    1.709981] ehci-brcm f0b00300.ehci_v2: EHCI Host Controller
+[    1.715664] ehci-brcm f0b00300.ehci_v2: new USB bus registered, assigned bus number 3
+[    1.733623] ehci-brcm f0b00300.ehci_v2: irq 122, io mem 0xf0b00300
+[    1.745089] ehci-brcm f0b00300.ehci_v2: USB 2.0 started, EHCI 1.00
+[    1.751638] hub 3-0:1.0: USB hub found
+[    1.755410] hub 3-0:1.0: 1 port detected
+[    1.759556] ehci-brcm f0b00500.ehci_v2: EHCI Host Controller
+[    1.765237] ehci-brcm f0b00500.ehci_v2: new USB bus registered, assigned bus number 4
+[    1.783156] ehci-brcm f0b00500.ehci_v2: irq 126, io mem 0xf0b00500
+[    1.795088] ehci-brcm f0b00500.ehci_v2: USB 2.0 started, EHCI 1.00
+[    1.801630] hub 4-0:1.0: USB hub found
+[    1.805463] hub 4-0:1.0: 1 port detected
+[    1.809658] ohci-brcm: OHCI BRCM driver
+[    1.813569] ohci-brcm f0b00400.ohci_v2: BRCM OHCI controller
+[    1.819251] ohci-brcm f0b00400.ohci_v2: new USB bus registered, assigned bus number 5
+[    1.827140] ohci-brcm f0b00400.ohci_v2: irq 123, io mem 0xf0b00400
+[    1.888453] hub 5-0:1.0: USB hub found
+[    1.892228] hub 5-0:1.0: 1 port detected
+[    1.896345] ohci-brcm f0b00600.ohci_v2: BRCM OHCI controller
+[    1.902027] ohci-brcm f0b00600.ohci_v2: new USB bus registered, assigned bus number 6
+[    1.910388] ohci-brcm f0b00600.ohci_v2: irq 127, io mem 0xf0b00600
+[    1.971406] hub 6-0:1.0: USB hub found
+[    1.975182] hub 6-0:1.0: 1 port detected
+[    1.979346] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    1.985895] ehci-pci: EHCI PCI platform driver
+[    1.990388] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    1.996588] ohci-pci: OHCI PCI platform driver
+[    2.001198] usbcore: registered new interface driver usb-storage
+[    2.007401] mousedev: PS/2 mouse device common for all mice
+[    2.013205] i2c /dev entries driver
+[    2.017104] brcmstb_thermal f04d1500.thermal: registered AVS TMON of-sensor driver
+[    2.024850] device-mapper: ioctl: 4.31.0-ioctl (2015-3-12) initialised: dm-devel@redhat.com
+[    2.069813] brcmstb-avs-cpufreq f04c4000.avs-cpu-data-mem: registered
+[    2.076513] sdhci: Secure Digital Host Controller Interface driver
+[    2.082707] sdhci: Copyright(c) Pierre Ossman
+[    2.087082] sdhci-pltfm: SDHCI platform and OF driver helper
+[    2.092862] sdhci-brcmstb f0200200.sdhci: No pin-select found
+[    2.099680] sdhci-brcmstb f0200200.sdhci: No vmmc regulator found
+[    2.105787] sdhci-brcmstb f0200200.sdhci: No vqmmc regulator found
+[    2.142092] mmc0: SDHCI controller on f0200200.sdhci [f0200200.sdhci] using ADMA
+[    2.151690] usbcore: registered new interface driver usbhid
+[    2.157279] usbhid: USB HID core driver
+[    2.163159] Netfilter messages via NETLINK v0.30.
+[    2.167904] nf_conntrack version 0.5.0 (16384 buckets, 65536 max)
+[    2.174184] ctnetlink v0.93: registering with nfnetlink.
+[    2.179780] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    2.187177] NET: Registered protocol family 17
+[    2.193675] bridge: automatic filtering via arp/ip/ip6tables has been deprecated. Update your scripts to load br_netfilter if you need this.
+[    2.206316] Bridge firewalling registered
+[    2.212346] Ebtables v2.0 registered
+[    2.216311] Key type dns_resolver registered
+[    2.220689] Registering SWP/SWPB emulation handler
+[    2.227995] brcm-waketimer f041a080.waketimer: setting system clock to 1970-01-01 00:00:16 UTC (16)
+[    2.268330] Freeing unused kernel memory: 46692K (c071b000 - c34b4000)
+[    2.283395] mmc0: MAN_BKOPS_EN bit is not set
+[    2.295261] mmc0: new high speed MMC card at address 0001
+[    2.301057] mmcblk0: mmc0:0001 008G30 6.78 GiB 
+[    2.305806] mmcblk0boot0: mmc0:0001 008G30 partition 1 4.00 MiB
+[    2.311898] mmcblk0boot1: mmc0:0001 008G30 partition 2 4.00 MiB
+[    2.317950] mmcblk0rpmb: mmc0:0001 008G30 partition 3 4.00 MiB
+[    2.324094]  mmcblk0: p1(SecurityLoader1) p2(E2P) p3(DataFS) p4(Firmware) p5(Reserved) p6(SecurityLoader2) p7(RA) p8(TS) p9(Noe2pFS) p10(CAS1) p11(CAS2)
+[    2.375176] bcmgenet f0480000.ethernet: configuring instance for external RGMII (no delay)
+Reset Quantenna Wifi
+SET IPTABLES RULES
+Starting mdev...
+Initializing random number generator... [    2.769631] random: dd urandom read with 1 bits of entropy available
+done.
+Starting network...
+ifup: interface lo already configured
+Starting Nexus Drivers (proxy mode):[    2.815450] nexus: module license 'Proprietary' taints kernel.
+[    2.821319] Disabling lock debugging due to kernel taint
+[    3.242159] nexus driver initialized
+ ...done. 
+Starting system nxserver Daemon
+Starting fpind
+[    3.261499]     00:00:00.019 nexus_platform_cma: *** unable to connect to ipc ser[    3.264121] input: fpin_buttons as /devices/virtual/input/input0
+ver. try again...
+
+[    3.274887] current Linux boot parameters: 'bmem=888m@352m'
+[    3.284028] nexus.ko: virtual irq: enabled (275)
+[    3.288698] *** 00:00:00.046 nexus_platform_os: virtual l2 enabled
+[    3.295149] nexus.ko: shared gpio banks: enabled*** 00:00:00.057 nexus_platform_os: shared gpio enabled
+[    3.304756] *** 00:00:00.062 nexus_platform_cma: unused 217MBytes of BMEM memory (used 670MBytes)
+[    3.314184]     00:00:00.072 nexus_platform_cma: recommended Linux boot parameters: 'vmalloc=664m bmem=671m@352m'
+[    3.328810] *** 00:00:00.086 BCHP_PWR:  
+[    3.332793] *** 00:00:00.090 BCHP_PWR: ****************************************
+[    3.340186] *** 00:00:00.098 BCHP_PWR: ****************************************
+[    3.347569] *** 00:00:00.105 BCHP_PWR: ** BCHP_PWR POWER MANAGEMENT DISABLED **
+[    3.354942] *** 00:00:00.112 BCHP_PWR: ****************************************
+[    3.362323] *** 00:00:00.120 BCHP_PWR: ****************************************
+[    3.369700] *** 00:00:00.127 BCHP_PWR:  
+[    3.484119] bcmgenet f04a0000.ethernet eth1: Link is Up - 1Gbps/Full - flow control off
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+d_board_specific_reset
+[    3.541240] *** 00:00:00.299 nexus_platform: m385_7268_DTIW385_FT B0 17.1, boxmode 5, product 7268 B0
+[    3.550514]     00:00:00.308 nexus_platform: NEXUS_SCM_ID_STRING:UNKNOWN
+[    3.557313]     00:00:00.315 nexus_environment: B_REFSW_BOARD_ID='4278190080', B_REFSW_BOXMODE='5', B_REFSW_PMAP_ID='1'
+[    3.568687] *** 00:00:00.326 BHSM: BSP Platform[4.2.0] BSECK[4.2.3] verified[yes] modes[0x0F] BFW Epoch[5]
+[    3.636519] !!!Error BHSM_STATUS_BSP_ERROR(0x40014) at magnum/portinginterface/hsm/src/bseck_cmd/bhsm_bseck.c:108
+[    3.646801] ### 00:00:00.404 BHSM: BHSM_VerifySecondTierKey: ERROR[0x1] 
+[    3.653561] *** 00:00:00.411 nexus_security_verify_reg: Failed to load Region Verification Key, key2
+[    3.662736] !!!Error BERR_INVALID_PARAMETER(0x2) at nexus/modules/security/src/nexus_security_regver.c:1449
+[    3.672492] !!!Error NEXUS_SECURITY_FAILED_TO_LOAD_REGVER_KEY(0x1090403) at nexus/modules/security/src/nexus_security_regver.c:855
+[    3.684247] !!!Error BERR_INVALID_PARAMETER(0x2) at nexus/modules/security/src/nexus_security_regver.c:685
+[    3.693915] !!!Error BERR_INVALID_PARAMETER(0x2) at nexus/modules/security/src/nexus_security.c:370
+[    3.707323]     00:00:00.465 BSAGElib: BSAGElib_P_GetChipsetType - Chip Type: Customer specific chip
+[    3.726385]     00:00:00.484 BSAGElib: SAGE Bootloader Version [GENERIC=3.2.7.0, Signing Tool=3.2.5.0]
+[    3.738308]     00:00:00.496 BSAGElib: SAGE Framework Version [GENERIC=3.2.11.0, Signing Tool=3.2.7.0]
+[    3.793503]     00:00:00.551 BSAGElib: BSAGElib_P_Boot_ResetSage: SAGE reset completed successfully
+*** unable to connect to ipc server. try again...
+[    4.378183] bcmgenet f0480000.ethernet eth0: Link is Down
+*** unable to connect to ipc server. try again...
+[    5.553884]     00:00:02.311 BSAGElib: SAGE TA: ANTIROLLBACK [Version=3.2.5.0, Signing Tool=3.2.7.0]
+[    5.749466] *** 00:00:02.507 nexus_statistics_module: [    5.749977]     00:00:02.507 BHDR_EDID_RAM: HDMI EDID bytes not specified; HDMI Rx will use its default EDID
+[    5.751792] *** 00:00:02.509 nexus_i2c: Channel 5 is not available on this platform.
+
+[    5.772092] sage[Default] modules/sage/src/nexus_sage_svp.c:538 2033 msec
+[    5.779474]     00:00:02.537 BSAGElib: SAGE TA: SECURE_VIDEO [Version=3.2.7.0, Signing Tool=3.2.7.0][    5.783851] *** 00:00:02.541 BHDM_EDID: Attached HDMI device 'HP E232' does not support audio
+
+[    5.797035] 
+[    5.812069] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+[    5.823417] *** 00:00:02.581 nexus_platform: initialized
+[    5.854164] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+[    5.950105] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+[    6.270856] ### 00:00:03.028 nexus_base_scheduler: uninitialized NEXUS_CallbackDesc from gpio->isrCallback
+dm_fpin_buttons_platform_init success
+dm_fpin_buttons_server_init success
+fpind init done.
+Waiting for nxserver and eMMC partitions
+[    6.330479] dmcrypt: use KRS key %boxkey:0a5b1dee
+opal_daemond: starting...
+[    6.382420] ### 00:00:03.140 nexus_base_scheduler: [    6.386208] bcmgenet f0480000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+
+[    6.395156] uninitialized NEXUS_CallbackDesc from gpio->isrCallback
+[    6.401847] ### 00:00:03.159 nexus_gpio_table: Pin mux register for 1 is not properly configured - value 7829250 should be 0
+[    6.413115] !!!Error BERR_INVALID_PARAMETER(0x2) at nexus/../obj.m385_7268_DTIW385_FT/nexus/core/syncthunk/nexus_gpio_table.c:279
+[    6.424782] !!!Error BERR_INVALID_PARAMETER(0x2) at nexus/modules/gpio/src/nexus_gpio.c:329
+[    6.433158] ### 00:00:03.191 nexus_base_scheduler: uninitialized NEXUS_CallbackDesc from gpio->isrCallback
+[    6.442956] ### 00:00:03.200 nexus_base_scheduler: uninitialized NEXUS_CallbackDesc from gpio->isrCallback
+opal_daemond: init done.
+opal_powerd: starting...
+opal_powerd: init done.
+kernel.printk_ratelimit = 0
+[    6.586270] random: nonblocking pool is initialized
+15360+0 records in
+15360+0 records out
+4+0 records in
+4+0 records out
+4704+0 records in
+4704+0 records out
+32768+0 records in
+32768+0 records out
+*****************************************
+** Strike 't' button to start toolbox **
+*****************************************
+Launching Downloader ...
+
+Please press Enter to activate this console. [IPL_MAIN_Loader] Entered MAIN
+
+[IPL_FPANEL_X_Init] Elt 0 max [   11.331680] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+display size 0 
+
+[IPL_FPANEL_X[   11.344725] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+_Init] Elt 1 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 2 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 3 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 4 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 5 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 6 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 7 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 8 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 9 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 10 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 11 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 12 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 13 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 14 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 15 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 16 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 17 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 18 max display size 0 
+
+[IPL_FPANEL_X_Init] Elt 19 max display size 0 
+Create key polling task
+Input key driver version is 1.0.1
+Input Key device ID: bus 0x3 vendor 0x1 product 0x1 version 0x1
+Input key device name: "fpin_buttons"
+Trace before call of read fct  
+serialNumber: 0x36 31 38 30 ...
+hardwareId: 0xff ff 
+usageId: 0xff ff 
+hardwareVersion: 0xca 0 0 0 
+IeeeOuiId: 0x0 60 4c ff 
+Init HDMI interface
+**********************************************
+HDMI Capabilities  ------> Display modes
+**********************************************
+HDMI display_mode : (0 / OPAL_VMIX_OUTPUT_720_576I_50_4_3) 
+HDMI display_mode : (1 / OPAL_VMIX_OUTPUT_720_576P_50_4_3) 
+HDMI display_mode : (2 / OPAL_VMIX_OUTPUT_720_480I_59_4_3) 
+HDMI display_mode : (3 / OPAL_VMIX_OUTPUT_720_480P_59_4_3) 
+HDMI display_mode : (6 / OPAL_VMIX_OUTPUT_720_576I_50_16_9) 
+HDMI display_mode : (7 / OPAL_VMIX_OUTPUT_720_576P_50_16_9) 
+HDMI display_mode : (8 / OPAL_VMIX_OUTPUT_720_480I_59_16_9) 
+HDMI display_mode : (9 / OPAL_VMIX_OUTPUT_720_480P_59_16_9) 
+HDMI display_mode : (13 / OPAL_VMIX_OUTPUT_1280_720P_50) 
+HDMI display_mode : (14 / OPAL_VMIX_OUTPUT_1920_1080P_24) 
+HDMI display_mode : (15 / OPAL_VMIX_OUTPUT_1920_1080P_25) 
+HDMI display_mode : (16 / OPAL_VMIX_OUTPUT_1920_1080P_30) 
+HDMI display_mode : (17 / OPAL_VMIX_OUTPUT_1920_1080I_50) 
+HDMI display_mode : (18 / OPAL_VMIX_OUTPUT_1920_1080P_50) 
+HDMI display_mode : (19 / OPAL_VMIX_OUTPUT_1280_720P_60) 
+HDMI display_mode : (20 / OPAL_VMIX_OUTPUT_1920_1080I_60) 
+HDMI display_mode : (21 / OPAL_VMIX_OUTPUT_1920_1080P_60) 
+
+Sink HDMI mode : (1 / OPAL_HDMI_MODE_HDMI) 
+[IPL_OSD_F_InitHdmi] Apply refresh rate filter 
+Sink HDMI display_mode : (21/OPAL_VMIX_OUTPUT_1920_1080P_60) aspect_ratio : (1/OPAL_HDMI_SINK_AR_16_9) 
+Sink HDMI display_mode : (18/OPAL_VMIX_OUTPUT_1920_1080P_50) aspect_ratio : (1/OPAL_HDMI_SINK_AR_16_9) 
+Sink HDMI display_mode : (19/OPAL_VMIX_OUTPUT_1280_720P_60) aspect_ratio : (1/OPAL_HDMI_SINK_AR_16_9) 
+Sink HDMI display_mode : (13/OPAL_VMIX_OUTPUT_1280_720P_50) aspect_ratio : (1/OPAL_HDMI_SINK_AR_16_9) 
+Sink HDMI display_mode : (9/OPAL_VMIX_OUTPUT_720_480P_59_16_9) aspect_ratio : (1/OPAL_HDMI_SINK_AR_16_9) 
+Sink HDMI display_mode : (3/OPAL_VMIX_OUTPUT_720_480P_59_4_3) aspect_ratio : (0/OPAL_HDMI_SINK_AR_4_3) 
+Sink HDMI display_mode : (7/OPAL_VMIX_OUTPUT_720_576P_50_16_9) aspect_ratio : (1/OPAL_HDMI_SINK_AR_16_9) 
+Sink HDMI display_mode : (1/OPAL_VMIX_OUTPUT_720_576P_50_4_3) aspect_ratio : (0/OPAL_HDMI_SINK_AR_4_3) 
+
+HDMI Best supported resolution: (21 / OPAL_VMIX_OUTPUT_1920_1080P_60)
+opal_vmix_open for HDMI! 
+opal_vmix_set_output_params, mode 21 
+Mutex_init_done
+commandline read: loader
+(*) Direct/Thread: Started 'SigHandler' (2326) [CRITICAL - OTHER/0] <8388608>...
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~| DirectFB 1.7.7 |~~~~~~~~~~~~~~~~~~~~~~~~~~
+        (c) 2012-2015  DirectFB integrated media GmbH
+        (c) 2001-2015  The world wide DirectFB Open Source Community
+        (c) 2000-2004  Convergence (integrated media) GmbH
+      ----------------------------------------------------------------
+
+(*) DirectFB/Core: Single Application Core. (2018-01-09 16:21) 
+(*) Direct/Memcpy: Using libc memcpy()
+(*) Direct/Thread: Started 'Fusion Dispatch' (2327) [MESSAGING - OTHER/0] <8388608>...
+*** 00:00:00.000 platform_init: Broadcom Corporation DirectFB-XS Platform Layer Version 10.2
+*** 00:00:00.004 nexus_common_init: Heap[0]: type=0x4, handle=0xd3962c00, size 190464kB - free 182360kB - largest block 182360kB - virt 0xa90e5000 - phys 0x344b2000
+*** 00:00:00.004 nexus_common_init: Heap[1]: type=0x7, handle=0xd4266100, size 163836kB - free 163169kB - largest block 163111kB - virt 0x9f0e6000 - phys 0x16000000
+*** 00:00:00.004 nexus_common_init: Heap[2]: type=0x8, handle=0xd4270f00, size 98304kB - free 87952kB - largest block 87952kB - virt (nil) - phys 0x22000000
+(*) Direct/Thread: Started 'BDFB_Irfra' (2333) [DEFAULT - OTHER/0] <8388608>...
+(*) DirectFB/Input:  3.2 (Broadcom)
+(*) Direct/Thread: Started 'Linux Input' (2334) [INPUT - OTHER/0] <8388608>...
+(*) DirectFB/Input: fpin_buttons 0.1 (directfb.org)
+(*) Direct/Thread: Started 'Hotplug with Linux Input' (2335) [INPUT - OTHER/0] <8388608>...
+(*) DirectFB/Input: Hot-plug detection enabled with Linux Input Driver 
+(*) DirectFB/Graphics: Broadcom Corporation Bcmnexus Packet Buffer GFX Driver 7.1 (Broadcom Corporation)
+(*) DirectFB/Core/WM: Default 0.3 (directfb.org)
+(*) Direct/Thread: Started 'Genefx' (2336) [DEFAULT - OTHER/0] <8388608>...
+pCtx->screen_width: 1280 pCtx->s[   11.915799] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+creen_height: 720 
+IPL_OSD_X_L[   11.929290]     00:00:08.687 BHDM: oadBitmap : Load Bitmap
+IPL_OSDTx0 Output: 1080i    (RGB (Default) 24 bpp) 1920 [+] x 540/540 [+], PxlClk: 74MHz (TMDS 74 Mcsc)_X_LoadBitmap : Load Bitmap
+Cre
+ate OSD task
+Enable HDMI output[   11.949345]     00:00:08.707 BHDM: 
+ipl_osd_update_message_thread:Tx0: Output Mode: DVI (Video Only) IPL_OSD_ACTION_NONE
+
+[   11.964472] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+[   11.975808] *** 00:00:08.733 nexus_hdmi_output_format_validation: 12 bit Color Depth is not supported by <HP E232
+     > Rx... checking lower color depths
+[   11.989763] *** 00:00:08.747 nexus_hdmi_output_format_validation: 10 bit Color Depth is not supported by <HP E232
+     >... will use standard 8 bit Color
+[   12.039269]     00:00:08.797 BHDM: Tx0 Output: 1080p (YCbCr 4:4:4 24 bpp) 1920 [+] x 1080/1080 [+], PxlClk: 148MHz (TMDS 148 Mcsc)
+[   12.169111] *** 00:00:08.927 nexus_statistics_module: display[Default] modules/surface_compositor/src/nexus_surface_client_video.c:456 247 msec[   12.175244] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300
+db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+
+[   12.193132] 
+[   12.194966] *** 00:00:08.952 nexus_statistics_callback: [   12.195182] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+
+[   12.211374] IsrCallbacks callback c33c1f00:bf0262d0 from modules/display/src/nexus_display_graphics.c:710 272 msec
+[   12.222114] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+[   12.333243] *** 00:00:09.091 nexus_hdmi_output_format_validation: 12 bit Color Depth is not supported by <HP E232
+     > Rx... checking lower color depths
+[   12.347205] *** 00:00:09.105 nexus_hdmi_output_format_validation: 10 bit Color Depth is not supported by <HP E232
+     >... will use standard 8 bit Color
+[   12.461095] *** 00:00:09.219 nexus_statistics_callback: [   12.461104] *** 00:00:09.219 nexus_statistics_module: display[Default] modules/surface_compositor/src/nexus_surface_client_video.c:456 240 msec
+
+[   12.479160] TaskCallback callback c3097b00:bf0262d0 from modules/hdmi_output/src/nexus_hdmi_output.c:457 240 msec
+[   12.489676] *** 00:00:09.247 nexus_statistics_callback: [   12.489682] *** 00:00:09.247 nexus_statistics_module: surface_compositor[Default] include/linuxkernel/driver/nexus_driver_body.h:155 256 msec
+
+[   12.507597] IsrCallbacks callback c33c1f00:bf0262d0 from modules/display/src/nexus_display_graphics.c:710 268 msec
+[   12.573404] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+[IPL_MAIN_Loader] LOADER version: 10412
+[IPL_MAIN_Loader] Firmware version: 875836468
+[IPL_MAIN_Loader] AR version: 0
+Found "secdata" MTD partition : /dev/mtd2 size: 8000
+Found "flash0.nomenclature" MTD partition : /dev/mtd3 size: 2c00
+Found "flash0.factorydata" MTD partition : /dev/mtd4 size: 400
+Found "FullNor" MTD partition : /dev/mtd5 size: 400000
+MTD Device: "FullNor"  init done
+type      : 3  
+flags     : c00  
+size      : 400000  
+erasesize : 10000  
+writesize : 1  
+oobsize   : 0  
+MTD Device: "flash0.nomenclature"  init done
+type      : 3  
+flags     : 800  
+size      : 2c00  
+erasesize : 10000  
+writesize : 1  
+oobsize   : 0  
+MTD device : "flash0.nomenclature" is a read only partition!
+MTD Device: "flash0.factorydata"  init done
+type      : 3  
+flags     : 800  
+size      : 400  
+erasesize : 10000  
+writesize : 1  
+oobsize   : 0  
+MTD device : "flash0.factorydata" is a read only partition!
+MTD Device: "secdata"  init done
+type      : 3  
+flags     : 800  
+size      : 8000  
+erasesize : 10000  
+writesize : 1  
+oobsize   : 0  
+MTD device : "secdata" is a read only partition!
+   *** [0] deviceType : 0  
+   *** [1] deviceType : 2  
+   *** [2] deviceType : 0  
+   *** [3] deviceType : 0  
+   *** [4] deviceType : 0  
+   *** [5] deviceType : 0  
+   *** [6] deviceType : 0  
+   *** [7] deviceType : 0  
+   *** [8] deviceType : 0  
+   *** [9] deviceType : 2  
+   *** [10] deviceType : 2  
+   *** [11] deviceType : 2  
+   *** [12] deviceType : 2  
+   *** [13] deviceType : 0  
+   *** [14] deviceType : 2  
+   *** [15] deviceType : 0  
+   *** [16] deviceType : 2  
+   *** [17] deviceType : 2  
+[IPL_MAIN_Loader] Request: 2
+
+SN : 618052000119 - IPL : DOWNLOAD REQUEST  = 2
+
+SN : 618052000119 - IPL : DOWNLOAD REQUEST IN PROGRESS
+
+[INTLDR_IsUrlValid] url is NULL 
+[f_INTLDR_ParseUrlHttp]url is /192.168.1.35/FW_00_00_00/kernel.bin[f_INTLDR_ParseUrlHttp]version is 0  )[f_INTLDR_ParseUrlHttp]url is /192.168.1.35/AR_05_04_01/ra.bin[f_INTLDR_ParseUrlHttp]version is 50401  )
+
+  ==>  firmware download
+
+STUB: Start Chenillard
+
+
+UPDATE MODULE DETECT (0 | 0 | 1 / 5)
+[IPL_NET_X_Init] Checking interface: type = 808464432
+[IPL_NET_X_Init] Checking protocol : type = 10
+Ethernet link is up
+
+[INTLDR]Get Field: Unsupported parameter
+
+[IPL_NET_HTTP_Init] run initial DHCP INIT cycle
+Ethernet link is up
+
+
+IPL : CALL IPL_OSD_X_DOWNLOAD_SCREEN
+IPL_OSD_X_LoadBitmap : Load Bitmap
+Enter into [IPL_FPANEL_X_Led_Syncro_With_Osd] 
+[IPL_FPANEL_X_Led_Syncro_With_Osd] 0x04 (d 04 ) Profile found from lookup table 
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_Prof[   12.823109] *** 417839:59:42.72 nexus_statistics_callback: 
+ileSet] opal_fpout_set_elt_state[   12.823116] *** 417839:59:42.72 nexus_statistics_module: display[Default] nexus/core/syncthunk/nexus_display_thunks.c:26 239 msec
+: 9
+[IPL_FPANEL_X_Led_ProfileSe[   12.843925] TaskCallback callback c3097b00:bf0262d0 from modules/hdmi_output/src/nexus_hdmi_output.c:457 250 msect] opal_fpout_set_elt_state: 9
+
+[IPL_FPANEL_X_Led_ProfileSet] op[   12.859908] *** 417839:59:42.75 nexus_statistics_api: al_fpout_set_elt_state: 9
+[IPL_NEXUS_Display_SetGraphicsFramebuffer[display:Default] 275 msecFPANEL_X_Led_ProfileSet] opal_fp
+out_set_elt_state: 9
+[IPL_FPANE[   12.878704] *** 417839:59:42.77 nexus_statistics_callback: L_X_Led_ProfileSet] opal_fpout_sTaskCallback callback c310adc0:bf0262d0 from modules/graphics2d/src/nexus_graphics2d.c:335 294 msecet_elt_s
+tate: 9
+[IPL_FPANEL_X_L
+ed_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+Display file: /loader/bin/GPACKAGE_05a.png 
+(*) Direct/Interface: Loaded 'PNG' implementation of 'IDirectFBImageProvider'.
+pCtx->screen_width: 1280 - pCtx->screen_height: 720 
+dsc.width: 1280 - dsc.height=pCtx: 720 
+IPL_OSD_X_LoadBitmap : IPL_OSD_Test_ProgressBar percent:0 Exit
+HDMI 
+opal_vmix_get_layer_params failed (10)
+IPL_NET_IP_Dhclient: start 
+ipl_net_ip_internal_stop: ENTER
+ipl_net_ip_internal_stop: END
+IPL_NET_IP_Dhclient: ipl_net_ip_internal_stop failed: 5
+ipl_net_ip_internal_open: data set to 7f6a0cf8
+ipl_net_ip_internal_thread: DHCP INIT cycle
+Execute dhconfig.sh update_config  \\015PC_MLTV_WHD94 sagem 2 4
+ipl_net_ip_internal_thread: dhcp request 1 : timeout = 2
+Execute dhclient -q -1 -lf /tmp/dhclient.leases -pf /var/run/dhclient.pid -cf /tmp/dhclient.conf -sf /sbin/dhclient-script eth0
+[   13.769956] nf_conntrack: automatic helper assignment is deprecated and it will be removed soon. Use the iptables CT target to attach helpers instead.
+ARPING to 192.168.1.36 from 192.168.1.36 via eth0
+Sent 1 probe(s) (1 broadcast(s))
+Received 0 reply (0 request(s), 0 broadcast(s))
+ipl_net_ip_internal_close: ENTER
+ipl_net_ip_internal_close: Destroy mutex and free data
+ipl_net_ip_internal_close: END
+IPL_NET_IP_Dhclient: stop 
+DHCP pCtx->flag_wps_state 1
+IPL_NET_IP_InitNtp: Found NTP server(s): thotfr.orange.com  
+IPL_NET_IP_InitNtp: Trying 'thotfr.orange.com'... 26 Jul 13:28:51 ntpdate[2382]: step time server 80.12.36.254 offset 154618125.902252 sec
+OK
+IPL_NET_IP_InitNtp: Updated local time : Tue Jul 26 15:28:51 2022
+[time zone : CET/CEST]
+
+
+UPDATE MODULE DETECTION
+
+HTTP Connect OK
+
+
+UPDATE MODULE ACQUISITION (0 | 0 | 1 / 5)
+
+
+UPDATE MODULE ACQUISITION
+
+Downloading from : http://192.168.1.35:80/FW_00_00_00/kernel.bin
+Progress :   0 %SSL connexion with public servercert : /opt/crt/loader_fr
+
+[IPL_NET_HTTP_Acquire]CURL do not check HOST name
+  2 %Progress Bar percent: 1 
+IPL_OSD_GetProgressRatio : skipped
+  3 %Progress Bar percent: 2 
+IPL_OSD_GetProgressRatio : skipped
+  4 %Progress Bar percent: 3 
+IPL_OSD_GetProgressRatio : skipped
+  5 %Progress Bar percent: 4 
+IPL_OSD_GetProgressRatio : skipped
+  6 %Progress Bar percent: 5 
+IPL_OSD_GetProgressRatio : skipped
+  7 %Progress Bar percent: 6 
+IPL_OSD_GetProgressRatio : skipped
+  8 %Progress Bar percent: 7 
+IPL_OSD_GetProgressRatio : skipped
+  9 %Progress Bar percent: 8 
+IPL_OSD_GetProgressRatio : skipped
+ 10 %Progress Bar percent: 9 
+IPL_OSD_GetProgressRatio : skipped
+ 11 %Progress Bar percent: 10 
+IPL_OSD_GetProgressRatio : skipped
+ 12 %Progress Bar percent: 11 
+IPL_OSD_GetProgressRatio : skipped
+ 13 %Progress Bar percent: 12 
+IPL_OSD_GetProgressRatio : skipped
+ 14 %Progress Bar percent: 13 
+IPL_OSD_GetProgressRatio : skipped
+ 15 %Progress Bar percent: 14 
+IPL_OSD_GetProgressRatio : skipped
+ 16 %Progress Bar percent: 15 
+IPL_OSD_GetProgressRatio : skipped
+ 17 %Progress Bar percent: 16 
+IPL_OSD_GetProgressRatio : skipped
+ 18 %Progress Bar percent: 17 
+IPL_OSD_GetProgressRatio : skipped
+ 19 %Progress Bar percent: 18 
+IPL_OSD_GetProgressRatio : skipped
+ 20 %Progress Bar percent: 19 
+IPL_OSD_GetProgressRatio : skipped
+ 21 %Progress Bar percent: 20 
+IPL_OSD_GetProgressRatio : skipped
+ 22 %Progress Bar percent: 21 
+IPL_OSD_GetProgressRatio : skipped
+ 23 %Progress Bar percent: 22 
+IPL_OSD_GetProgressRatio : skipped
+ 24 %Progress Bar percent: 23 
+IPL_OSD_GetProgressRatio : skipped
+ 25 %Progress Bar percent: 24 
+IPL_OSD_GetProgressRatio : skipped
+ 26 %Progress Bar percent: 25 
+IPL_OSD_GetProgressRatio : skipped
+ 27 %Progress Bar percent: 26 
+IPL_OSD_GetProgressRatio : skipped
+ 28 %Progress Bar percent: 27 
+IPL_OSD_GetProgressRatio : skipped
+ 29 %Progress Bar percent: 28 
+IPL_OSD_GetProgressRatio : skipped
+ 30 %Progress Bar percent: 29 
+IPL_OSD_GetProgressRatio : skipped
+ 31 %Progress Bar percent: 30 
+IPL_OSD_GetProgressRatio : skipped
+ 32 %Progress Bar percent: 31 
+IPL_OSD_GetProgressRatio : skipped
+ 33 %Progress Bar percent: 32 
+IPL_OSD_GetProgressRatio : skipped
+ 34 %Progress Bar percent: 33 
+IPL_OSD_GetProgressRatio : skipped
+ 35 %Progress Bar percent: 34 
+IPL_OSD_GetProgressRatio : skipped
+ 36 %Progress Bar percent: 35 
+IPL_OSD_GetProgressRatio : skipped
+ 37 %Progress Bar percent: 36 
+IPL_OSD_GetProgressRatio : skipped
+ 38 %Progress Bar percent: 37 
+IPL_OSD_GetProgressRatio : skipped
+ 39 %Progress Bar percent: 38 
+IPL_OSD_GetProgressRatio : skipped
+ 40 %Progress Bar percent: 39 
+IPL_OSD_GetProgressRatio : skipped
+ 41 %Progress Bar percent: 40 
+IPL_OSD_GetProgressRatio : skipped
+ 42 %Progress Bar percent: 41 
+IPL_OSD_GetProgressRatio : skipped
+ 43 %Progress Bar percent: 42 
+IPL_OSD_GetProgressRatio : skipped
+ 44 %Progress Bar percent: 43 
+IPL_OSD_GetProgressRatio : skipped
+ 45 %Progress Bar percent: 44 
+IPL_OSD_GetProgressRatio : skipped
+ 46 %Progress Bar percent: 45 
+IPL_OSD_GetProgressRatio : skipped
+ 47 %Progress Bar percent: 46 
+IPL_OSD_GetProgressRatio : skipped
+ 48 %Progress Bar percent: 47 
+IPL_OSD_GetProgressRatio : skipped
+ 49 %Progress Bar percent: 48 
+IPL_OSD_GetProgressRatio : skipped
+ 50 %Progress Bar percent: 49 
+IPL_OSD_GetProgressRatio : skipped
+ 51 %Progress Bar percent: 50 
+IPL_OSD_GetProgressRatio : skipped
+ 52 %Progress Bar percent: 51 
+IPL_OSD_GetProgressRatio : skipped
+ 53 %Progress Bar percent: 52 
+IPL_OSD_GetProgressRatio : skipped
+ 54 %Progress Bar percent: 53 
+IPL_OSD_GetProgressRatio : skipped
+ 55 %Progress Bar percent: 54 
+IPL_OSD_GetProgressRatio : skipped
+ 56 %Progress Bar percent: 55 
+IPL_OSD_GetProgressRatio : skipped
+ 57 %Progress Bar percent: 56 
+IPL_OSD_GetProgressRatio : skipped
+ 58 %Progress Bar percent: 57 
+IPL_OSD_GetProgressRatio : skipped
+ 59 %Progress Bar percent: 58 
+IPL_OSD_GetProgressRatio : skipped
+ 60 %Progress Bar percent: 59 
+IPL_OSD_GetProgressRatio : skipped
+ 61 %Progress Bar percent: 60 
+IPL_OSD_GetProgressRatio : skipped
+ 62 %Progress Bar percent: 61 
+IPL_OSD_GetProgressRatio : skipped
+ 63 %Progress Bar percent: 62 
+IPL_OSD_GetProgressRatio : skipped
+ 64 %Progress Bar percent: 63 
+IPL_OSD_GetProgressRatio : skipped
+ 65 %Progress Bar percent: 64 
+IPL_OSD_GetProgressRatio : skipped
+ 66 %Progress Bar percent: 65 
+IPL_OSD_GetProgressRatio : skipped
+ 67 %Progress Bar percent: 66 
+IPL_OSD_GetProgressRatio : skipped
+ 68 %Progress Bar percent: 67 
+IPL_OSD_GetProgressRatio : skipped
+ 69 %Progress Bar percent: 68 
+IPL_OSD_GetProgressRatio : skipped
+ 70 %Progress Bar percent: 69 
+IPL_OSD_GetProgressRatio : skipped
+ 71 %Progress Bar percent: 70 
+IPL_OSD_GetProgressRatio : skipped
+ 72 %Progress Bar percent: 71 
+IPL_OSD_GetProgressRatio : skipped
+ 73 %Progress Bar percent: 72 
+IPL_OSD_GetProgressRatio : skipped
+ 74 %Progress Bar percent: 73 
+IPL_OSD_GetProgressRatio : skipped
+ 75 %Progress Bar percent: 74 
+IPL_OSD_GetProgressRatio : skipped
+ 76 %Progress Bar percent: 75 
+IPL_OSD_GetProgressRatio : skipped
+ 77 %Progress Bar percent: 76 
+IPL_OSD_GetProgressRatio : skipped
+ 78 %Progress Bar percent: 77 
+IPL_OSD_GetProgressRatio : skipped
+ 79 %Progress Bar percent: 78 
+IPL_OSD_GetProgressRatio : skipped
+ 80 %Progress Bar percent: 79 
+IPL_OSD_GetProgressRatio : skipped
+ 81 %Progress Bar percent: 80 
+IPL_OSD_GetProgressRatio : skipped
+ 82 %Progress Bar percent: 81 
+IPL_OSD_GetProgressRatio : skipped
+ 83 %Progress Bar percent: 82 
+IPL_OSD_GetProgressRatio : skipped
+ 84 %Progress Bar percent: 83 
+IPL_OSD_GetProgressRatio : skipped
+ 85 %Progress Bar percent: 84 
+IPL_OSD_GetProgressRatio : skipped
+ 86 %Progress Bar percent: 85 
+IPL_OSD_GetProgressRatio : skipped
+ 87 %Progress Bar percent: 86 
+IPL_OSD_GetProgressRatio : skipped
+ 88 %Progress Bar percent: 87 
+IPL_OSD_GetProgressRatio : skipped
+ 89 %Progress Bar percent: 88 
+IPL_OSD_GetProgressRatio : skipped
+ 90 %Progress Bar percent: 89 
+IPL_OSD_GetProgressRatio : skipped
+ 91 %Progress Bar percent: 90 
+IPL_OSD_GetProgressRatio : skipped
+ 92 %Progress Bar percent: 91 
+IPL_OSD_GetProgressRatio : skipped
+ 93 %Progress Bar percent: 92 
+IPL_OSD_GetProgressRatio : skipped
+ 94 %Progress Bar percent: 93 
+IPL_OSD_GetProgressRatio : skipped
+ 95 %Progress Bar percent: 94 
+IPL_OSD_GetProgressRatio : skipped
+ 96 %Progress Bar percent: 95 
+IPL_OSD_GetProgressRatio : skipped
+ 97 %Progress Bar percent: 96 
+IPL_OSD_GetProgressRatio : skipped
+ 98 %Progress Bar percent: 97 
+IPL_OSD_GetProgressRatio : skipped
+ 99 %Progress Bar percent: 98 
+IPL_OSD_GetProgressRatio : skipped
+100 %Progress Bar percent: 99 
+IPL_OSD_GetProgressRatio : skipped
+
+CURL code 0: Download OK
+
+HTTP Close
+
+
+UPDATE RELEASE VERIFY (0)
+
+
+ [ModuleTypeBit_To_INTLDR_ModuleType] Module Type is LOADER
+
+[IPL_SGN_FT_GetModuleType] Module Type (2)
+
+[IPL_UPD_ModuleAcquire] Unexpected module type (Streaminfo MT 0x3, Playload MT 0x2)
+SN : 618052000119 - IPL : ERROR UPD_PROCESS_UPDATE() = 0x00000a07
+
+
+UPDATE DRIVERS TERMINATION
+HTTP Term
+HTTP Term
+
+SN : 618052000119 - IPL : ERROR DOWNLOAD = 0x00000a07
+*** Print all MB fields BEFORE STB reboot ***
+boot_mode : DOWNLOAD
+dhcp77 : PC_MLTV_WHD94
+ntpserver : thotfr.orange.com
+timeoffset : CET-1CEST,M3.5.0/02:00:00,M10.5.0/03:00:00
+dl_firmware_url : http://192.168.1.35/FW_00_00_00/kernel.bin
+dl_firmware_ssu : 
+dl_firmware_ret : 9018
+dl_firmware_idx : 0
+rescue_firmware_url : http://karma-pfqdm-dl2.orange.com/kstbvalid/fr/sagem/SAGEM_WHD94_stbste_00.00.00/rescue/FW_00_00_00/whd94_test.as3
+dl_loader_url : 
+dl_loader_ssu : 
+dl_loader_ret : 
+dl_loader_idx : 255
+rescue_loader_url : 
+dl_ra_url : http://192.168.1.35/AR_05_04_01/ra.bin
+dl_ra_ssu : 
+dl_ra_ret : 9800
+dl_ra_idx : 255
+rescue_ra_url : 
+country : FR
+wifi_ssid : 
+wifi_key : 
+wifi_state : 1
+IPL_OSD_X_LoadBitmap : Load Bitmap
+Enter into [IPL_FPANEL_X_Led_Syncro_With_Osd] 
+[IPL_FPANEL_X_Led_Syncro_With_Osd] 0x05 (d 05 ) Profile found from lookup table 
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+[IPL_FPANEL_X_Led_ProfileSet] opal_fpout_set_elt_state: 9
+Display file: /loader/bin/ERREUR_e2a.png 
+pCtx->screen_width: 1280 - pCtx->screen_height: 720 
+dsc.width: 1280 - dsc.height=pCtx: 720 
+HDMI 
+Layer params in_x(0) in_y(0) in_w(1920) in_h(1080).
+Layer params out_x(0) out_y(0) out_w(1920) out_h(1080).
+Layer params show(1) alpha(255).
+
+
+ FPANEL message : ||Error (9) when setting state for  element (0), line size (0) string ()
+1.1.1.2: RPC: Program not registered
+26.31
+3
+[QTN] calstate 3, do start-prod
+Setting MAC address B8:D9:4D:8F:6E:6C
+complete
+complete
+
+SN : 618052000119 - IPL : RESET_System
+
+#ip addr sh
+
+1: lo: <LOOPBACK> mtu 65536 qdisc noop 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq qlen 1000
+    link/ether b8:d9:4d:8f:6e:6b brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.36/24 brd 192.168.1.255 scope global eth0
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq qlen 1000
+    link/ether b8:d9:4d:8f:6e:6b brd ff:ff:ff:ff:ff:ff
+    inet 1.1.1.1/8 brd 1.255.255.255 scope global eth1:0
+       valid_lft forever preferred_lft forever
+
+
+[IPL_MAIN_Loader] Reboot ...
+Disable HDMI output
+[   29.570075] !!!Error BHDM_EDID_AUDIO_FORMATS_UNAVAILABLE(0x300db) at magnum/portinginterface/hdm/src/common/bhdm_edid.c:3468
+Reset Quantenna Wifi
+ Call opal_power_set_mode:OPAL_POWER_RESET (reset by PIC/SBC) 
+[   30.257101] reboot: Restarting system
+
+
+
+
+
+
+
+6. Ip de mon pc :
+
+mon_pseudo:~/phoenix$ip --brief addr sh
+
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp7s4           UNKNOWN        
+enp5s0           UP             192.168.1.35/24 2a01:cb08:87c8:d00:d5a6:8708:b7ce:3fe9/64 2a01:cb08:87c8:d00:baac:6fff:fe7e:53f7/64 fe80::baac:6fff:fe7e:53f7/64 
+enp7s5           UNKNOWN        
+enp7s6           UNKNOWN        
+enp7s7           UNKNOWN        
+docker0          DOWN           172.18.0.1/16 
+
+

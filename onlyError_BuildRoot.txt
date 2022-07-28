@@ -1,0 +1,274 @@
+kgwm9680@2a01cb0881545a00baac6ffffe7e53f7:~/phoenix/br-os/targets/newbox$ make > logBuild_BuildRoot.txt
+configure: WARNING: unrecognized options: --enable-shared, --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-dependency-tracking
+configure: WARNING: unrecognized options: --enable-shared, --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-dependency-tracking
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop
+In function 'attr_list_pack',
+    inlined from 'attr_list' at libattr/libattr.c:325:7:
+libattr/libattr.c:279:2: warning: 'strncpy' specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  279 |  strncpy(aentp->a_name, name, size - sizeof(aentp->a_valuelen));
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+libattr/libattr.c: In function 'attr_list':
+libattr/libattr.c:269:21: note: length computed here
+  269 |  int size = roundup(strlen(name) + 1 + sizeof(aentp->a_valuelen), 8);
+      |                     ^~~~~~~~~~~~
+libattr/libattr.c:40:26: note: in definition of macro 'roundup'
+   40 | #define roundup(x,y) ((((x)+((y)-1))/(y))*(y))
+      |                          ^
+In function 'attr_list_pack',
+    inlined from 'attr_listf' at libattr/libattr.c:370:7:
+libattr/libattr.c:279:2: warning: 'strncpy' specified bound depends on the length of the source argument [-Wstringop-overflow=]
+  279 |  strncpy(aentp->a_name, name, size - sizeof(aentp->a_valuelen));
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+libattr/libattr.c: In function 'attr_listf':
+libattr/libattr.c:269:21: note: length computed here
+  269 |  int size = roundup(strlen(name) + 1 + sizeof(aentp->a_valuelen), 8);
+      |                     ^~~~~~~~~~~~
+libattr/libattr.c:40:26: note: in definition of macro 'roundup'
+   40 | #define roundup(x,y) ((((x)+((y)-1))/(y))*(y))
+      |                          ^
+/usr/bin/ar: `u' modifier ignored since `D' is the default (see `U')
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop
+libacl/__acl_to_any_text.c: In function '__acl_to_any_text':
+libacl/__acl_to_any_text.c:90:3: warning: 'strcpy' writing 1 or more bytes into a region of size 0 overflows the destination [-Wstringop-overflow=]
+   90 |   strcpy(string_obj_p->sstr + len, suffix);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/bin/ar: `u' modifier ignored since `D' is the default (see `U')
+configure: WARNING: unrecognized options: --enable-shared, --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-static
+date: Warning: using $SOURCE_DATE_EPOCH instead of true time
+date: Warning: using $SOURCE_DATE_EPOCH instead of true time
+configure: WARNING: unrecognized options: --enable-shared, --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-static
+m4.c:146:1: warning: 'pure' attribute on function returning 'void' [-Wattributes]
+  146 | {
+      | ^
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls
+date: Warning: using $SOURCE_DATE_EPOCH instead of true time
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls
+/usr/bin/ar: `u' modifier ignored since `D' is the default (see `U')
+configure: WARNING: unrecognized options: --enable-shared, --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-dependency-tracking
+date: Warning: using $SOURCE_DATE_EPOCH instead of true time
+configure: WARNING: unrecognized options: --enable-shared, --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-dependency-tracking
+configure: WARNING: unrecognized options: --enable-shared, --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-dependency-tracking
+configure: WARNING: Fortran compiler cannot create executables
+configure: WARNING: Fortran 77 compiler cannot create executables
+configure: WARNING: unrecognized options: --enable-shared, --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-dependency-tracking
+configure.ac:11: installing './compile'
+configure.ac:6: installing './config.guess'
+configure.ac:6: installing './config.sub'
+configure.ac:7: installing './install-sh'
+configure.ac:7: installing './missing'
+Makefile.am: installing './depcomp'
+parallel-tests: installing './test-driver'
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls
+libfakeroot.c: In function 'fts_read':
+libfakeroot.c:2072:22: warning: passing argument 1 of 'send_get_stat64' from incompatible pointer type [-Wincompatible-pointer-types]
+ 2072 |     SEND_GET_STAT64(r->fts_statp, _STAT_VER);
+      |                     ~^~~~~~~~~~~
+      |                      |
+      |                      struct stat *
+libfakeroot.c:89:46: note: in definition of macro 'SEND_GET_STAT64'
+   89 | #define SEND_GET_STAT64(a,b) send_get_stat64(a)
+      |                                              ^
+In file included from libfakeroot.c:60:
+communicate.h:209:44: note: expected 'struct stat64 *' but argument is of type 'struct stat *'
+  209 | extern void send_get_stat64(struct stat64 *buf);
+      |                             ~~~~~~~~~~~~~~~^~~
+libfakeroot.c: In function 'fts_children':
+libfakeroot.c:2095:24: warning: passing argument 1 of 'send_get_stat64' from incompatible pointer type [-Wincompatible-pointer-types]
+ 2095 |       SEND_GET_STAT64(r->fts_statp, _STAT_VER);
+      |                       ~^~~~~~~~~~~
+      |                        |
+      |                        struct stat *
+libfakeroot.c:89:46: note: in definition of macro 'SEND_GET_STAT64'
+   89 | #define SEND_GET_STAT64(a,b) send_get_stat64(a)
+      |                                              ^
+In file included from libfakeroot.c:60:
+communicate.h:209:44: note: expected 'struct stat64 *' but argument is of type 'struct stat *'
+  209 | extern void send_get_stat64(struct stat64 *buf);
+      |                             ~~~~~~~~~~~~~~~^~~
+/usr/bin/ar: `u' modifier ignored since `D' is the default (see `U')
+/usr/bin/ar: `u' modifier ignored since `D' is the default (see `U')
+In file included from /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:33,
+                 from /usr/include/stdio.h:27,
+                 from /home/kgwm9680/phoenix/br-os/targets/newbox/build/host-mkpasswd/mkpasswd.c:24:
+/usr/include/features.h:187:3: warning: #warning "_BSD_SOURCE and _SVID_SOURCE are deprecated, use _DEFAULT_SOURCE" [-Wcpp]
+  187 | # warning "_BSD_SOURCE and _SVID_SOURCE are deprecated, use _DEFAULT_SOURCE"
+      |   ^~~~~~~
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop, --enable-ipv6, --disable-nls
+configure: WARNING: using cross tools not prefixed with host triplet
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop, --enable-ipv6, --disable-nls
+xmlwf.c: In function 'main':
+xmlwf.c:966:22: warning: 'attackThresholdBytes' may be used uninitialized in this function
+At top level:
+cc1: warning: unrecognized command line option "-Wno-pedantic-ms-format"
+libtool: warning: remember to run 'libtool --finish /usr/lib'
+libtool: warning: remember to run 'libtool --finish /usr/lib'
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop, --enable-ipv6, --disable-nls
+configure: WARNING: using cross tools not prefixed with host triplet
+configure: WARNING: Sufficiently new AppArmor library not found
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop, --enable-ipv6, --disable-nls
+dbus-bus.c: In function 'internal_bus_get':
+dbus-bus.c:425:3: warning: comparison of unsigned expression >= 0 is always true
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+dbus-message.c: In function '_dbus_message_loader_get_unix_fds':
+dbus-message.c:4333:36: warning: comparison between signed and unsigned integer expressions
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+dbus-sysdeps-unix.c: In function '_dbus_append_address_from_socket':
+dbus-sysdeps-unix.c:4603:5: warning: declaration of 'socket' shadows a global declaration
+dbus-sysdeps-unix.c: In function '_dbus_logv':
+dbus-sysdeps-unix.c:4724:11: warning: 'flags' may be used uninitialized in this function
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+config-parser.c: In function 'set_limit':
+config-parser.c:2198:7: warning: logical 'or' of collectively exhaustive tests is always true
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+dispatch.c: In function 'bus_dispatch_matches':
+dispatch.c:131:13: warning: declaration of 'link' shadows a global declaration
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+dir-watch-inotify.c: In function '_set_watched_dirs_internal':
+dir-watch-inotify.c:100:13: warning: declaration of 'link' shadows a global declaration
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+activation-helper.c: In function 'desktop_file_for_name':
+activation-helper.c:54:13: warning: declaration of 'link' shadows a global declaration
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+dbus-launch.c: In function 'main':
+dbus-launch.c:844:13: warning: unused variable 'error'
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+dbus-monitor.c: In function 'main':
+dbus-monitor.c:468:19: warning: 'where' may be used uninitialized in this function
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+dbus-cleanup-sockets.c: In function 'usage':
+dbus-cleanup-sockets.c:376:1: warning: function might be possible candidate for attribute 'noreturn'
+At top level:
+cc1: warning: unrecognized command line option "-Wno-cast-function-type"
+libtool: warning: remember to run 'libtool --finish /usr/lib'
+libtool: warning: remember to run 'libtool --finish /usr/lib'
+WARNING: no hash file for dbus-wait-6cc6077a36fe2648a5f993fe7c16c9632f946517-br1.tar.gz
+configure.ac:6: installing './compile'
+configure.ac:3: installing './install-sh'
+configure.ac:3: installing './missing'
+Makefile.am: installing './INSTALL'
+Makefile.am: installing './depcomp'
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop, --enable-ipv6, --disable-nls, --disable-static, --enable-shared
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --with-xmlto, --with-fop, --enable-ipv6, --disable-nls, --disable-static, --enable-shared
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls
+/usr/bin/ar: `u' modifier ignored since `D' is the default (see `U')
+/usr/bin/ar: `u' modifier ignored since `D' is the default (see `U')
+configure.ac:31: installing './compile'
+configure.ac:19: installing './missing'
+Makefile.am: installing './depcomp'
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-documentation, --with-xmlto, --with-fop, --disable-nls
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-documentation, --with-xmlto, --with-fop, --disable-nls
+configure: WARNING: unrecognized options: --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-documentation, --with-xmlto, --with-fop, --disable-nls
+../src/java_raw_api.c: In function 'ffi_java_raw_call':
+../src/java_raw_api.c:317:3: warning: 'ffi_java_raw_to_ptrarray' is deprecated [-Wdeprecated-declarations]
+  317 |   ffi_java_raw_to_ptrarray (cif, raw, avalue);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../src/java_raw_api.c:76:1: note: declared here
+   76 | ffi_java_raw_to_ptrarray (ffi_cif *cif, ffi_java_raw *raw, void **args)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~
+../src/java_raw_api.c: In function 'ffi_java_translate_args':
+../src/java_raw_api.c:328:3: warning: 'ffi_java_raw_size' is deprecated [-Wdeprecated-declarations]
+  328 |   ffi_java_raw *raw = (ffi_java_raw*)alloca (ffi_java_raw_size (cif));
+      |   ^~~~~~~~~~~~
+../src/java_raw_api.c:45:1: note: declared here
+   45 | ffi_java_raw_size (ffi_cif *cif)
+      | ^~~~~~~~~~~~~~~~~
+../src/java_raw_api.c:331:3: warning: 'ffi_java_ptrarray_to_raw' is deprecated [-Wdeprecated-declarations]
+  331 |   ffi_java_ptrarray_to_raw (cif, avalue, raw);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../src/java_raw_api.c:157:1: note: declared here
+  157 | ffi_java_ptrarray_to_raw (ffi_cif *cif, void **args, ffi_java_raw *raw)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~
+../src/java_raw_api.c: In function 'ffi_prep_java_raw_closure':
+../src/java_raw_api.c:369:3: warning: 'ffi_prep_java_raw_closure_loc' is deprecated [-Wdeprecated-declarations]
+  369 |   return ffi_prep_java_raw_closure_loc (cl, cif, fun, user_data, cl);
+      |   ^~~~~~
+../src/java_raw_api.c:337:1: note: declared here
+  337 | ffi_prep_java_raw_closure_loc (ffi_java_raw_closure* cl,
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/bin/ar: `u' modifier ignored since `D' is the default (see `U')
+date: Warning: using $SOURCE_DATE_EPOCH instead of true time
+configure: WARNING: unrecognized options: --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-dependency-tracking, --enable-static
+configure: WARNING: unrecognized options: --disable-static, --disable-gtk-doc, --disable-gtk-doc-html, --disable-doc, --disable-docs, --disable-documentation, --disable-debug, --with-xmlto, --with-fop, --disable-nls, --disable-dependency-tracking, --enable-static
+In function '_PyLong_Format',
+    inlined from '_PyLong_Format' at Objects/longobject.c:1455:1:
+Objects/longobject.c:1497:14: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+ 1497 |         *--p = 'L';
+      |         ~~~~~^~~~~
+In file included from Include/Python.h:97,
+                 from Objects/longobject.c:5:
+Objects/longobject.c: In function '_PyLong_Format':
+Include/stringobject.h:39:10: note: at offset -1 to object 'ob_sval' with size 1 declared here
+   39 |     char ob_sval[1];
+      |          ^~~~~~~
+In function 'long_to_decimal_string',
+    inlined from '_PyLong_Format' at Objects/longobject.c:1466:16:
+Objects/longobject.c:1422:14: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+ 1422 |         *--p = 'L';
+      |         ~~~~~^~~~~
+In file included from Include/Python.h:97,
+                 from Objects/longobject.c:5:
+Objects/longobject.c: In function '_PyLong_Format':
+Include/stringobject.h:39:10: note: at offset -1 to object 'ob_sval' with size 1 declared here
+   39 |     char ob_sval[1];
+      |          ^~~~~~~
+Objects/longobject.c: In function '_PyLong_Frexp':
+Objects/longobject.c:2293:33: warning: 'x_digits[0]' may be used uninitialized in this function [-Wmaybe-uninitialized]
+ 2293 |                     x_digits[0] |= 1;
+      |                                 ^~
+In function 'assemble_lnotab',
+    inlined from 'assemble_emit' at Python/compile.c:3660:25,
+    inlined from 'assemble' at Python/compile.c:3952:18:
+Python/compile.c:3611:19: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+ 3611 |         *lnotab++ = 255;
+      |         ~~~~~~~~~~^~~~~
+/usr/bin/ld: Modules/posixmodule.o: in function `posix_tmpnam':
+/home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/./Modules/posixmodule.c:7648: warning: the use of `tmpnam_r' is dangerous, better use `mkstemp'
+/usr/bin/ld: Modules/posixmodule.o: in function `posix_tempnam':
+/home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/./Modules/posixmodule.c:7595: warning: the use of `tempnam' is dangerous, better use `mkstemp'
+/home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c: In function 'floattime':
+/home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c:1019:9: warning: 'ftime' is deprecated [-Wdeprecated-declarations]
+ 1019 |         ftime(&t);
+      |         ^~~~~
+In file included from /home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c:31:
+/usr/include/x86_64-linux-gnu/sys/timeb.h:39:12: note: declared here
+   39 | extern int ftime (struct timeb *__timebuf)
+      |            ^~~~~
+/home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c: In function 'floattime':
+/home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c:1019:9: warning: 'ftime' is deprecated [-Wdeprecated-declarations]
+ 1019 |         ftime(&t);
+      |         ^~~~~
+In file included from /home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c:31:
+/usr/include/x86_64-linux-gnu/sys/timeb.h:39:12: note: declared here
+   39 | extern int ftime (struct timeb *__timebuf)
+      |            ^~~~~
+/home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c: In function 'floattime':
+/home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c:1019:9: warning: 'ftime' is deprecated [-Wdeprecated-declarations]
+ 1019 |         ftime(&t);
+      |         ^~~~~
+In file included from /home/kgwm9680/phoenix/br-os/targets/newbox/build/host-python-2.7.18/Modules/timemodule.c:31:
+/usr/include/x86_64-linux-gnu/sys/timeb.h:39:12: note: declared here
+   39 | extern int ftime (struct timeb *__timebuf)
+      |            ^~~~~
+Traceback (most recent call last):
+  File "./configure", line 1017, in <module>
+    configure_node(output)
+  File "./configure", line 544, in configure_node
+    o['variables']['gcc_version'] = 10 * cc_version[0] + cc_version[1]
+IndexError: tuple index out of range
+make[1]: *** [package/pkg-generic.mk:260: /home/kgwm9680/phoenix/br-os/targets/newbox/build/host-nodejs012-0.12.9/.stamp_configured] Error 1
+make: *** [Makefile:23: _all] Error 2
